@@ -12,7 +12,7 @@ but random stuff.
 
 My only hopes/guidelines for this library are:
 * Use the latest C++ standard, techniques, and practices.
-* Prefer the standard library or on track for standardization.
+* Prefer the standard library or libraries on track for standardization.
 * Compile with GCC and Clang.
 * Work on any modern Linux (I use Debian).
 
