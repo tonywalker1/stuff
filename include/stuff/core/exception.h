@@ -1,24 +1,17 @@
-// MIT License
+// Copyright (C) 2019  Tony Walker
 //
-// Copyright (c) 2019 Tony Walker
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #ifndef STUFF_EXCEPTION_H
 #define STUFF_EXCEPTION_H
@@ -27,6 +20,7 @@
 #include <stdexcept>
 #include <string>
 
+//
 // Exception Handling
 //
 // Having been influenced by Boost Exception, I tend to use exception types as
@@ -47,7 +41,12 @@
 // You can use STUFF_* macros below to throw (possibly nested) exceptions, and
 // then unwind them with to_string().
 
+
+//
 // Define new exception types, see generic_error below.
+// For example:
+//   STUFF_DEFINE_EXCEPTION(random_number_error, generic_error);
+//
 #define STUFF_DEFINE_EXCEPTION(except, except_base) \
     struct except : public except_base \
     { \
@@ -62,12 +61,21 @@ namespace stuff {
     STUFF_DEFINE_EXCEPTION(generic_error, std::runtime_error);
 
     // Unwind any nested expections.
+    // For example:
+    //   catch (const std::exception& e) {
+    //       std::cout << to_string(e) << '\n';
+    //   }
     std::string to_string(const std::exception& e);
 
 } // namespace stuff
 
 
+//
 // Throw an exception with a formatted string.
+// Uses libfmt, see the site for libfmt for documentation.
+// For example:
+//   STUFF_THROW(universe_error, "the answer is {}", 42);
+//
 #define STUFF_THROW(except, ...) \
     throw except(std::string(#except ": ") \
         + fmt::format(__VA_ARGS__))
@@ -77,7 +85,13 @@ namespace stuff {
         + fmt::format(__VA_ARGS__)))
 
 
+//
 // Test preconditions, postconditions, and invariants.
+// For example:
+//   STUFF_EXPECTS(get_answer() == 42,
+//       universe_error,
+//       "the answer should be {}", 42);
+//
 #define STUFF_ASSERT(cond, except, ...) \
     if (!(cond)) \
         STUFF_THROW(except, fmt::format(__VA_ARGS__))

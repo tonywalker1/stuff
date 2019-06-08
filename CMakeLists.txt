@@ -1,7 +1,7 @@
 ################################################################################
 # project settings
 ################################################################################
-cmake_minimum_required(VERSION 3.7.2)
+cmake_minimum_required(VERSION 3.13.4)
 project(stuff LANGUAGES CXX)
 
 ################################################################################
@@ -17,7 +17,7 @@ if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-set(CMAKE_CXX_STANDARD          14)
+set(CMAKE_CXX_STANDARD          17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS        OFF)
 
@@ -26,13 +26,8 @@ include(GNUInstallDirs)
 ################################################################################
 # enable benchmarking and testing
 ################################################################################
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-
-include(create_benchmark)
-add_custom_target(benchmark)
-
-include(create_test)
 enable_testing()
+add_custom_target(benchmark)
 
 ################################################################################
 # display a few import an settings for debugging
@@ -50,5 +45,6 @@ message(STATUS "************")
 ################################################################################
 # build subprojects
 ################################################################################
+#add_subdirectory(benchmarks) # none yet...
 add_subdirectory(src)
 add_subdirectory(tests)
