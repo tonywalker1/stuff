@@ -5,21 +5,23 @@ Miscellaneous, random, eclectic C++ code and other stuff. ;-)
 # Summary
 
 This library is my attempt to collect code I have written over the years into
-a shareable and reusable form.
+a shareable and reusable form. At the moment, I have no real agenda or plan
+other than for this library to be useful. Also, I don't intend for this library
+to solve some grand problem. It will probably always be a collection of useful
+but random stuff.
 
-It has the following properties:
-* Attempts to use the latest C++ standard, techniques, and practices.
-* Attempts to use only the standard library or libraries that are in development
-for the standard library.
-* Should work on GCC and Clang.
-* Should work on any modern Linux (I use Debian)
+My only hopes/guidelines for this library are:
+* Use the latest C++ standard, techniques, and practices.
+* Prefer the standard library or on track for standardization.
+* Compile with GCC and Clang.
+* Work on any modern Linux (I use Debian).
 
-I really have no plan for this library and it could grow in many directions
-should anyone want to help. Hint. Hint. ;-)
+If you find this library useful, I would love to hear about it!
 
 # Dependencies
 
 See the code for a definitive list, but as for now:
+* Boost Filesystem (https://www.boost.org/)
 * Catch2 (https://github.com/catchorg/Catch2)
 * libfmt (https://github.com/fmtlib/fmt)
 
@@ -27,5 +29,3 @@ See the code for a definitive list, but as for now:
 
 I would love suggestions, fixes, and other contributions. Feel free to discuss
 major additions.
-
-If you find this library useful, I would love to hear about it!
