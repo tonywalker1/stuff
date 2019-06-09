@@ -46,7 +46,7 @@ namespace stuff {
         }
     }
 
-    std::string to_ascii(const byte_array& content)
+    std::string to_8bit_ascii(const byte_array& content)
     {
         std::string tmp;
         encoding enc {detect_bom(content)};
