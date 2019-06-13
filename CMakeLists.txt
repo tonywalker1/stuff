@@ -17,7 +17,6 @@ if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-set(CMAKE_CXX_STANDARD          17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS        OFF)
 
@@ -34,7 +33,6 @@ add_custom_target(benchmark)
 ################################################################################
 message(STATUS "************")
 message(STATUS "C++ Compiler: " ${CMAKE_CXX_COMPILER})
-message(STATUS "C++ Standard: " ${CMAKE_CXX_STANDARD})
 message(STATUS "   C++ Flags: " ${CMAKE_CXX_FLAGS})
 message(STATUS "  Build Type: " ${CMAKE_BUILD_TYPE})
 message(STATUS "Verbose Make: " ${CMAKE_VERBOSE_MAKEFILE})
@@ -45,6 +43,43 @@ message(STATUS "************")
 ################################################################################
 # build subprojects
 ################################################################################
-#add_subdirectory(benchmarks) # none yet...
 add_subdirectory(src)
-add_subdirectory(tests)
+#add_subdirectory(tests)
+
+################################################################################
+# cmake config
+################################################################################
+install(
+    FILES       "${PROJECT_SOURCE_DIR}/cmake/stuffConfig.cmake"
+    DESTINATION "lib/cmake/stuff"
+)
+
+
+
+
+
+#export(
+#    TARGETS
+#        core
+#        io
+#    NAMESPACE
+#        stuff::
+#    FILE
+#        "${PROJECT_BINARY_DIR}/cmake/stuffTargets.cmake"
+#)
+#export(PACKAGE stuff)
+
+#install(
+#    EXPORT      stuffTargets
+#    FILE        ${PROJECT_BINARY_DIR}/stuffTargets.cmake
+#    NAMESPACE   stuff::
+#    DESTINATION lib/cmake/stuff
+#)
+
+#set(CONF_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}" "${PROJECT_BINARY_DIR}")
+#configure_file(cmake/stuffConfig.cmake.in
+#    "${PROJECT_BINARY_DIR}/stuffConfig.cmake" @ONLY)
+#install(
+#    FILES "${PROJECT_BINARY_DIR}/stuffConfig.cmake"
+#    DESTINATION lib/cmake/stuff
+#)
