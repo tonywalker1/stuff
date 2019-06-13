@@ -44,7 +44,8 @@ message(STATUS "************")
 # build subprojects
 ################################################################################
 add_subdirectory(src)
-#add_subdirectory(tests)
+add_subdirectory(tests)
+#add_subdirectory(benchmarks)
 
 ################################################################################
 # cmake config
@@ -53,33 +54,3 @@ install(
     FILES       "${PROJECT_SOURCE_DIR}/cmake/stuffConfig.cmake"
     DESTINATION "lib/cmake/stuff"
 )
-
-
-
-
-
-#export(
-#    TARGETS
-#        core
-#        io
-#    NAMESPACE
-#        stuff::
-#    FILE
-#        "${PROJECT_BINARY_DIR}/cmake/stuffTargets.cmake"
-#)
-#export(PACKAGE stuff)
-
-#install(
-#    EXPORT      stuffTargets
-#    FILE        ${PROJECT_BINARY_DIR}/stuffTargets.cmake
-#    NAMESPACE   stuff::
-#    DESTINATION lib/cmake/stuff
-#)
-
-#set(CONF_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}" "${PROJECT_BINARY_DIR}")
-#configure_file(cmake/stuffConfig.cmake.in
-#    "${PROJECT_BINARY_DIR}/stuffConfig.cmake" @ONLY)
-#install(
-#    FILES "${PROJECT_BINARY_DIR}/stuffConfig.cmake"
-#    DESTINATION lib/cmake/stuff
-#)

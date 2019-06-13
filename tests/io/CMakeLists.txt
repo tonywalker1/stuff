@@ -13,8 +13,8 @@ add_executable(stuff_io_tests
 
 target_link_libraries(stuff_io_tests
     Catch2::Catch2
-    stuff_core
-    stuff_io
+    stuff::core
+    stuff::io
 )
 
 include(CTest)

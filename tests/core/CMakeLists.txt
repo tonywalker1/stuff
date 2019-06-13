@@ -14,7 +14,7 @@ add_executable(stuff_core_tests
 
 target_link_libraries(stuff_core_tests
     Catch2::Catch2
-    stuff_core
+    stuff::core
 )
 
 include(CTest)
