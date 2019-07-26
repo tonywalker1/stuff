@@ -13,13 +13,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef STUFF_EXCEPTION_H
-#define STUFF_EXCEPTION_H
-
-#include <fmt/format.h>
-#include <stdexcept>
-#include <string>
-
 //
 // Exception Handling
 //
@@ -40,12 +33,27 @@
 //
 // You can use STUFF_* macros below to throw (possibly nested) exceptions, and
 // then unwind them with to_string().
+//
 
+#ifndef STUFF_EXCEPTION_H
+#define STUFF_EXCEPTION_H
+
+#include <fmt/format.h>
+#include <stdexcept>
+#include <string>
 
 //
 // Define new exception types, see generic_error below.
 // For example:
 //   STUFF_DEFINE_EXCEPTION(random_number_error, generic_error);
+//
+//   try {
+//       ...
+//       throw random_number_error {"the answer is 42"};
+//   }
+//   catch (const random_number_error& e) {
+//       std::cerr << to_string(e) << '\n';
+//   }
 //
 #define STUFF_DEFINE_EXCEPTION(except, except_base) \
     struct except : public except_base \
