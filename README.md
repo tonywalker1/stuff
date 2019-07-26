@@ -25,7 +25,10 @@ major additions/contributions. See CONTRIBUTING.
 (May be slightly out-of-date. See code for definitive list of contents.)
 
 **core**
-  * **exception:** Ease defining new exceptions, formatting exception messages, checking preconditions/postconditions/invariants, handling/outputing nested exceptions, etc.
+  * **exception:** Ease defining new exceptions, formatting exception messages,
+  checking preconditions/postconditions/invariants, handling nested exceptions,
+  etc.
+  * **random:** Simple wrapper for generating random integers and real numbers.
 
 **io**
   * **filesystem:**
