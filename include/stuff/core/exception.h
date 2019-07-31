@@ -65,7 +65,7 @@
 
 namespace stuff {
 
-    // Default error and base classes for all other exceptions.
+    // Default error and base class for all other exceptions.
     STUFF_DEFINE_EXCEPTION(generic_error, std::runtime_error);
 
     // Unwind any nested expections.

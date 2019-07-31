@@ -34,7 +34,8 @@ namespace stuff {
 
     //
     // Detect the Byte-Order-Mark (BOM) if present.
-    // Only detect recent/common BOM's.
+    // Notes:
+    // - only detects recent/common BOM's
     //
     encoding detect_bom(const byte_array& content);
 
@@ -42,10 +43,13 @@ namespace stuff {
     // Convert ASCII encoded as UTF-16 or UTF-32 into an 8-bit ASCII string.
     //
     // I occasionally get data from others that is ASCII but was generated on
-    // a system or with a language that uses UTF-16, for example. This function
+    // a system or with a language that uses UTF-16. This function
     // does a quick and dirty conversion. It does no language detection. Only
     // use it when you are certain your data is ASCII saved as UTF-16/32.
     // Will work if passed ASCII as 8-bit chars or UTF-8, but there is no point.
+    //
+    // Notes:
+    // - removes all control codes (except new lines)
     //
     std::string to_8bit_ascii(const byte_array& content);
 
