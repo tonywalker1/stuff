@@ -14,12 +14,13 @@ My only hopes/guidelines for this library are:
 * Use the latest C++ standard, techniques, and practices.
 * Prefer the standard library, libraries on track for standardization, or Boost.
 * Compile with GCC and Clang.
-* Work on any modern Linux (I use Debian).
+* Work on any modern Linux (I use Debian) or BSD distribution.
 
 If you find this library useful, I would love to hear about it!
 
-I would love suggestions, fixes, and other contributions. Feel free to discuss
-major additions/contributions. See CONTRIBUTING.
+I would love suggestions, fixes, and other contributions. I would be
+particularly interested in help supporting other platforms.
+Feel free to discuss major additions/contributions. See CONTRIBUTING.
 
 # Library Contents
 (May be slightly out-of-date. See code for definitive list of contents.)
@@ -29,6 +30,8 @@ major additions/contributions. See CONTRIBUTING.
   checking preconditions/postconditions/invariants, handling nested exceptions,
   etc.
   * **random:** Simple wrapper for generating random integers and real numbers.
+  * **unicode** Encoding detection and fast conversions of ASCII saved as
+  UTF-16/32.
 
 **io**
   * **filesystem:**
