@@ -24,8 +24,8 @@
 //   double get_random_double(double lower, double upper)
 //   {
 //       ...
-//       FX_ENSURES(lower <= val, random_number_error, "some message");
-//       FX_ENSURES(val < upper, random_number_error, "some message");
+//       STUFF_EXPECTS(lower <= val, random_number_error, "some message");
+//       STUFF_EXPECTS(val < upper, random_number_error, "some message");
 //       ...
 //   }
 // This will generate the following message:
