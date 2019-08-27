@@ -26,32 +26,45 @@ namespace stuff {
 
     byte_array read_as_bytes(const fs::path& filename)
     {
-        fs::ifstream file {filename, std::ifstream::binary};
-        STUFF_EXPECTS(file,
-            filesystem_error,
-            "failed to open \"{}\"", filename.native());
-        std::noskipws(file);
-        return byte_array(std::istream_iterator<char>(file),
-            std::istream_iterator<char>());
+        byte_array result;
+        fs::ifstream file;
+        file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+        try {
+            file.open(filename, std::ifstream::binary);
+            std::noskipws(file);
+            result.insert(result.end(),
+                std::istream_iterator<char>(file), std::istream_iterator<char>());
+        }
+        catch (const std::exception& e) {
+            STUFF_NESTED_THROW(filesystem_error,
+                "error reading \"{}\"", filename.native());
+        }
+        return result;
     }
 
     std::string read_as_text(const fs::path& filename)
     {
-        fs::ifstream file {filename};
-        STUFF_EXPECTS(file,
-            filesystem_error,
-            "failed to open \"{}\"", filename.native());
-        std::noskipws(file);
-        return std::string {std::istream_iterator<char>(file),
-            std::istream_iterator<char>()};
+        std::string result;
+        fs::ifstream file;
+        file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+        try {
+            file.open(filename);
+            std::noskipws(file);
+            result.append(std::istream_iterator<char>(file),
+                std::istream_iterator<char>());
+        }
+        catch (const std::exception& e) {
+            STUFF_NESTED_THROW(filesystem_error,
+                "error reading \"{}\"", filename.native());
+        }
+        return result;
     }
 
     fs::path home_dir()
     {
         const char* env = std::getenv("HOME");
-        STUFF_ENSURES(env != nullptr,
-            filesystem_error,
-            "home directory lookup failed");
+        if (env == nullptr)
+            STUFF_THROW(filesystem_error, "home directory lookup failed");
         return fs::path(env);
     }
 
