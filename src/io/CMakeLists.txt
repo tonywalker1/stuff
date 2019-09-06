@@ -5,12 +5,14 @@ find_package(Boost REQUIRED
     COMPONENTS
         filesystem
 )
+find_package(ZLIB REQUIRED)
 
 ################################################################################
 # build project
 ################################################################################
 add_library(io SHARED
     filesystem.cpp
+    gzip.cpp
 )
 set_target_properties(io PROPERTIES OUTPUT_NAME "stuff_io")
 add_library(stuff::io ALIAS io)
