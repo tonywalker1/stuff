@@ -29,7 +29,16 @@ namespace stuff {
     public:
 
         gzip_file(fs::path path, const char* mode = "r");
+
+        gzip_file(const gzip_file&) = delete;
+        gzip_file(gzip_file&&)      = delete;
+
+        gzip_file& operator= (const gzip_file&) = delete;
+        gzip_file& operator= (gzip_file&&) = delete;
+
         ~gzip_file();
+
+        // void flush();
 
     private:
 

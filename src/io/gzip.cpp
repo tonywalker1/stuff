@@ -17,6 +17,19 @@
 
 namespace stuff {
 
+    gzip_file::gzip_file(fs::path path, const char* mode)
+    {
+        m_handle = gzopen(path.c_str(), mode);
+    }
 
+    gzip_file::~gzip_file()
+    {
+        gzclose(m_handle);
+    }
+
+    // void gzip_file::flush()
+    // {
+    //
+    // }
 
 } // namespace stuff

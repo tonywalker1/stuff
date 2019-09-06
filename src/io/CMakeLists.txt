@@ -25,6 +25,7 @@ target_compile_features(io
 target_link_libraries(io
     PUBLIC
         Boost::filesystem
+        ZLIB::ZLIB
 )
 
 target_include_directories(io
