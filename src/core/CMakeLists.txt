@@ -8,7 +8,7 @@ find_package(fmt REQUIRED)
 ################################################################################
 add_library(core SHARED
     exception.cpp
-#    string.cpp
+    string.cpp
     unicode.cpp
 )
 set_target_properties(core PROPERTIES OUTPUT_NAME "stuff_core")
