@@ -26,7 +26,6 @@ include(GNUInstallDirs)
 # enable benchmarking and testing
 ################################################################################
 enable_testing()
-add_custom_target(benchmark)
 
 ################################################################################
 # display a few import an settings for debugging
@@ -45,7 +44,6 @@ message(STATUS "************")
 ################################################################################
 add_subdirectory(src)
 add_subdirectory(tests)
-#add_subdirectory(benchmarks)
 
 ################################################################################
 # cmake config
