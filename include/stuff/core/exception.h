@@ -1,4 +1,4 @@
-// Copyright (C) 2019  Tony Walker
+// Copyright (C) 2019, 2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -35,8 +35,8 @@
 // then unwind them with to_string().
 //
 
-#ifndef STUFF_EXCEPTION_H
-#define STUFF_EXCEPTION_H
+#ifndef STUFF_CORE_EXCEPTION_H
+#define STUFF_CORE_EXCEPTION_H
 
 #include <fmt/format.h>
 #include <stdexcept>
@@ -58,8 +58,8 @@
 #define STUFF_DEFINE_EXCEPTION(except, except_base) \
     struct except : public except_base \
     { \
-        except(const char* msg)        : except_base(msg) {} \
-        except(const std::string& msg) : except_base(msg) {} \
+        explicit except(const char* msg)        : except_base(msg) {} \
+        explicit except(const std::string& msg) : except_base(msg) {} \
     }
 
 
@@ -85,8 +85,7 @@ namespace stuff {
 //   STUFF_THROW(universe_error, "the answer is {}", 42);
 //
 #define STUFF_THROW(except, ...) \
-    throw except(std::string(#except ": ") \
-        + fmt::format(__VA_ARGS__))
+    throw except(std::string(#except ": ") + fmt::format(__VA_ARGS__))
 
 #define STUFF_NESTED_THROW(except, ...) \
     std::throw_with_nested(except(std::string(#except ": ") \
@@ -102,14 +101,14 @@ namespace stuff {
 //
 #define STUFF_ASSERT(cond, except, ...) \
     if (!(cond)) \
-        STUFF_THROW(except, fmt::format(__VA_ARGS__))
+        throw except(std::string(#except ": ") + fmt::format(__VA_ARGS__))
 
 #define STUFF_EXPECTS(cond, except, ...) \
     if (!(cond)) \
-        STUFF_THROW(except, fmt::format(__VA_ARGS__))
+        throw except(std::string(#except ": ") + fmt::format(__VA_ARGS__))
 
 #define STUFF_ENSURES(cond, except, ...) \
     if (!(cond)) \
-        STUFF_THROW(except, fmt::format(__VA_ARGS__))
+        throw except(std::string(#except ": ") + fmt::format(__VA_ARGS__))
 
-#endif // STUFF_EXCEPTION_H
+#endif // STUFF_CORE_EXCEPTION_H
