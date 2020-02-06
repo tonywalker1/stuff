@@ -1,4 +1,4 @@
-// Copyright (C) 2019  Tony Walker
+// Copyright (C) 2019, 2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -14,50 +14,39 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <stuff/io/filesystem.h>
-#include <stuff/core/exception.h>
+#include <stuff/io/detail/iops.h>
 #include <cstdlib>
 #include <fstream>
-#include <ios>
-#include <iterator>
 #include <string>
-#include <string_view>
 
-namespace stuff {
+namespace stuff::io {
 
-    byte_array read_as_bytes(const fs::path& filename)
+    byte_array read_as_bytes(const fs::path& filename, compression_type ct)
     {
-        byte_array result;
-        fs::ifstream file;
-        file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
         try {
-            file.open(filename, std::ifstream::binary);
-            std::noskipws(file);
-            result.insert(result.end(),
-                std::istream_iterator<char>(file), std::istream_iterator<char>());
+            return detail::read_entire_file<byte_array>(
+                filename.native().c_str(),
+                ct,
+                std::ifstream::binary);
         }
         catch (const std::exception& e) {
             STUFF_NESTED_THROW(filesystem_error,
                 "error reading \"{}\"", filename.native());
         }
-        return result;
     }
 
-    std::string read_as_text(const fs::path& filename)
+    std::string read_as_text(const fs::path& filename, compression_type ct)
     {
-        std::string result;
-        fs::ifstream file;
-        file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
         try {
-            file.open(filename);
-            std::noskipws(file);
-            result.append(std::istream_iterator<char>(file),
-                std::istream_iterator<char>());
+            return detail::read_entire_file<std::string>(
+                filename.native().c_str(),
+                ct,
+                std::ifstream::in);
         }
         catch (const std::exception& e) {
             STUFF_NESTED_THROW(filesystem_error,
                 "error reading \"{}\"", filename.native());
         }
-        return result;
     }
 
     fs::path home_dir()
@@ -68,6 +57,29 @@ namespace stuff {
         return fs::path(env);
     }
 
+    fs::path expand_home(std::string_view p)
+    {
+        try {
+            if (p == "~") {
+                return home_dir();
+            }
+            else if (p.substr(0, 2) == "~/") {
+                p.remove_prefix(1);
+                fs::path tmp {home_dir()};
+                tmp.append(p.begin(), p.end());
+                return tmp;
+            }
+            else {
+                return fs::path {p.begin(), p.end()};
+            }
+        }
+        catch (const std::exception& e) {
+            STUFF_NESTED_THROW(filesystem_error,
+                "failed to expand \"{}\"", p);
+        }
+    }
+
+    /*
     fs::path expand_home(const fs::path& p)
     {
         try {
@@ -86,5 +98,5 @@ namespace stuff {
                 "failed to expand \"{}\"", p.native());
         }
     }
-
+    */
 } // namespace stuff

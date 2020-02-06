@@ -16,7 +16,7 @@
 #include <stuff/io/filesystem.h>
 #include <catch2/catch.hpp>
 
-using namespace stuff;
+using namespace stuff::io;
 
 SCENARIO("expanding a tilde to the home directory", "[filesystem]") {
     WHEN("the path starts with a tilde") {
