@@ -20,22 +20,27 @@ If you find this library useful, I would love to hear about it!
 # Library Contents
 (May be slightly out-of-date. See code for definitive list of contents.)
 
+**algorithm**
+  * **output:** Simplify dumping containers. Great for debugging.
+  * **random:** Simple wrapper for generating random integers and real numbers.
+
 **core**
   * **exception:** Ease defining new exceptions, formatting exception messages,
   checking preconditions/postconditions/invariants, handling nested exceptions,
   etc.
-  * **random:** Simple wrapper for generating random integers and real numbers.
   * **unicode** Encoding detection and fast conversions of ASCII saved as
   UTF-16/32.
 
 **io**
-  * **filesystem:**
+  * **filesystem:** Transparent file compression, functional-like algorithms
+  for files and directories, etc.
 
 # Dependencies
 
 See the code for a definitive list, but as for now:
 * Boost (https://www.boost.org/)
   * Filesystem
+  * IOStreams
 * Catch2 (https://github.com/catchorg/Catch2)
 * libfmt (https://github.com/fmtlib/fmt)
 
@@ -47,7 +52,6 @@ Compilers
 
 Platforms
 * Linux (I use Debian Stable)
-* BSD (I use FreeBSD)
 
 # Getting Started
 
