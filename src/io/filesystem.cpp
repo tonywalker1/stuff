@@ -49,6 +49,17 @@ namespace stuff::io {
         }
     }
 
+    path_array list_files(const fs::path& dir)
+    {
+        path_array manifest;
+        for (const auto& entry : fs::directory_iterator(dir)) {
+            if (fs::is_regular_file(entry)) {
+                manifest.push_back(entry.path());
+            }
+        }
+        return manifest;
+    }
+
     fs::path home_dir()
     {
         const char* env = std::getenv("HOME");
@@ -79,24 +90,4 @@ namespace stuff::io {
         }
     }
 
-    /*
-    fs::path expand_home(const fs::path& p)
-    {
-        try {
-            if (p.size() == 0) {
-                return fs::path {p};
-            }
-            else if (p.native().front() == '~') {
-                return home_dir().concat(&p.native()[1]);
-            }
-            else {
-                return fs::path {p};
-            }
-        }
-        catch (const std::exception& e) {
-            STUFF_NESTED_THROW(filesystem_error,
-                "failed to expand \"{}\"", p.native());
-        }
-    }
-    */
 } // namespace stuff
