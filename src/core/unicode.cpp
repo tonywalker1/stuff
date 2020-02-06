@@ -1,4 +1,4 @@
-// Copyright (C) 2019  Tony Walker
+// Copyright (C) 2019, 2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -16,7 +16,7 @@
 #include <stuff/core/unicode.h>
 #include <cstring>
 
-namespace stuff {
+namespace stuff::core {
 
     encoding detect_bom(const byte_array& content)
     {
@@ -67,4 +67,4 @@ namespace stuff {
         return tmp;
     }
 
-} // namespace stuff
+} // namespace stuff::core

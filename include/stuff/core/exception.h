@@ -63,7 +63,7 @@
     }
 
 
-namespace stuff {
+namespace stuff::core {
 
     // Default error and base class for all other exceptions.
     STUFF_DEFINE_EXCEPTION(generic_error, std::runtime_error);
@@ -75,7 +75,7 @@ namespace stuff {
     //   }
     std::string to_string(const std::exception& e);
 
-} // namespace stuff
+} // namespace stuff::core
 
 
 //

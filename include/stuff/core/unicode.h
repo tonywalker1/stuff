@@ -1,4 +1,4 @@
-// Copyright (C) 2019  Tony Walker
+// Copyright (C) 2019, 2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -13,14 +13,14 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef STUFF_UNICODE_H
-#define STUFF_UNICODE_H
+#ifndef STUFF_CORE_UNICODE_H
+#define STUFF_CORE_UNICODE_H
 
 #include <stuff/core/byte_array.h>
 #include <stuff/core/exception.h>
 #include <string>
 
-namespace stuff {
+namespace stuff::core {
 
     STUFF_DEFINE_EXCEPTION(unicode_error, generic_error);
 
@@ -56,6 +56,6 @@ namespace stuff {
     // FIXME: Should provide general purpose charset detection and conversion
     // with libicu. Should employ to_8bit_ascii() fast-path.
 
-} // namespace stuff
+} // namespace stuff::core
 
-#endif // STUFF_UNICODE_H
+#endif // STUFF_CORE_UNICODE_H

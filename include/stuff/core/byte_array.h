@@ -18,12 +18,12 @@
 
 #include <vector>
 
-namespace stuff {
+namespace stuff::core {
 
     // Provide an alias to a collection of bytes; primarily for binary blobs,
     // compressed data, etc.
     using byte_array = std::vector<char>;
 
-} // namespace stuff
+} // namespace stuff::core
 
 #endif // STUFF_CORE_BYTE_ARRAY_H

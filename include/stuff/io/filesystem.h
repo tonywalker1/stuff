@@ -27,7 +27,7 @@ namespace fs = boost::filesystem;
 
 namespace stuff::io {
 
-    STUFF_DEFINE_EXCEPTION(filesystem_error, generic_error);
+    STUFF_DEFINE_EXCEPTION(filesystem_error, core::generic_error);
 
     // Alias for a vector of paths.
     using path_array = std::vector<fs::path>;
@@ -36,7 +36,7 @@ namespace stuff::io {
     enum class compression_type {none, bzip2, gzip};
 
     // Read an entire file as text or binary data.
-    byte_array  read_as_bytes(const fs::path& filename,
+    core::byte_array  read_as_bytes(const fs::path& filename,
         compression_type ct = compression_type::none);
     std::string read_as_text(const fs::path& filename,
         compression_type ct = compression_type::none);

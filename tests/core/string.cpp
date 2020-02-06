@@ -14,11 +14,10 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <stuff/core/string.h>
-#include <stuff/core/random.h>
 #include <catch2/catch.hpp>
 #include <string>
 
-using namespace stuff;
+using namespace stuff::core;
 
 SCENARIO("splitting a string", "[string]") {
     // setup an array to catch the parts of the string

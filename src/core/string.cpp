@@ -1,4 +1,4 @@
-// Copyright (C) 2019  Tony Walker
+// Copyright (C) 2019, 2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -17,7 +17,7 @@
 #include <stuff/core/exception.h>
 #include <charconv>
 
-namespace stuff {
+namespace stuff::core {
 
     int to_int(std::string_view view)
     {
@@ -51,4 +51,4 @@ namespace stuff {
         }
     }
 
-} // namespace stuff
+} // namespace stuff::core

@@ -16,7 +16,7 @@
 #include <stuff/core/exception.h>
 #include <catch2/catch.hpp>
 
-using namespace stuff;
+using namespace stuff::core;
 
 SCENARIO("defining a new exception type", "[exception]") {
     STUFF_DEFINE_EXCEPTION(stuff, generic_error);

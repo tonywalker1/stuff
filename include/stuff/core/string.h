@@ -1,4 +1,4 @@
-// Copyright (C) 2019  Tony Walker
+// Copyright (C) 2019, 2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -13,14 +13,14 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef STUFF_STRING_H
-#define STUFF_STRING_H
+#ifndef STUFF_CORE_STRING_H
+#define STUFF_CORE_STRING_H
 
 #include <stuff/core/exception.h>
 #include <string>
 #include <vector>
 
-namespace stuff {
+namespace stuff::core {
 
     STUFF_DEFINE_EXCEPTION(string_conversion_error, generic_error);
 
@@ -55,6 +55,6 @@ namespace stuff {
     int    to_int(std::string_view view);
     double to_double(std::string_view view);
 
-} // namespace stuff
+} // namespace stuff::core
 
-#endif // STUFF_STRING_H
+#endif // STUFF_CORE_STRING_H

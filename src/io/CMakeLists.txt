@@ -5,6 +5,7 @@ find_package(Boost REQUIRED
     COMPONENTS
         filesystem
         iostreams
+        system
 )
 
 ################################################################################
@@ -25,6 +26,7 @@ target_link_libraries(io
     PUBLIC
         Boost::filesystem
         Boost::iostreams
+        Boost::system
 )
 
 target_include_directories(io

@@ -19,11 +19,11 @@
 #include <string>
 #include <vector>
 
-namespace stuff {
+namespace stuff::core {
 
     // Alias to an array of strings.
     using string_array = std::vector<std::string>;
 
-} // namespace stuff
+} // namespace stuff::core
 
 #endif // STUFF_CORE_STRING_ARRAY_H

@@ -18,7 +18,7 @@
 
 #include <cstddef>
 
-namespace stuff {
+namespace stuff::core {
 
     // Generate size in bytes from size in kb, mb, or gb.
     // For example,
@@ -38,6 +38,6 @@ namespace stuff {
         return val * 1024 * 1024 * 1024;
     }
 
-} // namespace stuff
+} // namespace stuff::core
 
 #endif // STUFF_CORE_UNITS_H
