@@ -20,7 +20,7 @@
 #include <chrono>
 #include <random>
 
-namespace stuff {
+namespace stuff::algorithm {
 
     STUFF_DEFINE_EXCEPTION(random_error, generic_error);
 
@@ -69,6 +69,6 @@ namespace stuff {
     template <typename T>
     using random_real = random_number<T, std::uniform_real_distribution<T>>;
 
-} // namespace stuff
+} // namespace stuff::algorithm
 
 #endif // STUFF_ALGORITHM_RANDOM_H

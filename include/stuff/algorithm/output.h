@@ -18,7 +18,7 @@
 
 #include <iostream>
 
-namespace stuff {
+namespace stuff::algorithm {
 
     // Send every item in a container to stdout.
     template <typename C>
@@ -41,6 +41,6 @@ namespace stuff {
         to_stream(container, std::cerr);
     }
 
-} // namespace stuff
+} // namespace stuff::algorithm
 
 #endif // STUFF_ALGORITHM_OUTPUT_H
