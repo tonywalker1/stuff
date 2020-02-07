@@ -1,4 +1,4 @@
-// Copyright (C) 2019  Tony Walker
+// Copyright (C) 2019, 2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -18,19 +18,28 @@
 
 using namespace stuff::io;
 
-SCENARIO("expanding a tilde to the home directory", "[filesystem]") {
-    WHEN("the path starts with a tilde") {
-        THEN("the tilde should be replaced") {
-            CHECK(expand_home("~") == home_dir());
-            CHECK(expand_home("~/some/files")
-                == home_dir().concat("/some/files"));
-        }
+TEST_CASE("strings can be converted to paths", "[filesystem]")
+{
+    const fs::path empty;
+    const fs::path home {home_dir()};
+
+    SECTION("the string is the nullptr or an empty string") {
+        REQUIRE(expand_home(nullptr)             == empty);
+        REQUIRE(expand_home("")                  == empty);
+        REQUIRE(expand_home(std::string_view {}) == empty);
+        REQUIRE(expand_home(std::string {})      == empty);
     }
-    WHEN("the path does not start with a tilde") {
-        THEN("the path is unchanged") {
-            CHECK(expand_home("/home/user") == "/home/user");
-            CHECK(expand_home("/home/user/some/files")
-                == "/home/user/some/files");
-        }
+    SECTION("the string is ~ or starts with ~/") {
+        REQUIRE(expand_home("~")       == home);
+        REQUIRE(expand_home("~/")      == home.native() + "/");
+        REQUIRE(expand_home("~/stuff") == home.native() + "/stuff");
+    }
+    SECTION("otherwise, any string ~ or not is left unchanged") {
+        REQUIRE(expand_home("/")          == "/");
+        REQUIRE(expand_home(".")          == ".");
+        REQUIRE(expand_home("a")          == "a");
+        REQUIRE(expand_home("~stuff")     == "~stuff");
+        REQUIRE(expand_home("stuff~")     == "stuff~");
+        REQUIRE(expand_home("/some/path") == "/some/path");
     }
 }

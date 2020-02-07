@@ -22,7 +22,7 @@
 
 namespace stuff::algorithm {
 
-    STUFF_DEFINE_EXCEPTION(random_error, generic_error);
+    STUFF_DEFINE_EXCEPTION(random_error, stuff::core::generic_error);
 
     //
     // Generate pseudorandom numbers in a given range. See random_integer and
@@ -41,14 +41,15 @@ namespace stuff::algorithm {
     class random_number {
     public:
 
-        random_number(T lower, T upper)
+        random_number(T lower, T upper,
+            size_t seed = std::chrono::system_clock::now().time_since_epoch().count())
         : m_distribution(lower, upper),
-          m_engine(static_cast<unsigned>(
-              std::chrono::system_clock::now().time_since_epoch().count()))
+          m_engine(seed)
         {
             STUFF_EXPECTS(lower < upper,
                 random_error,
                 "bad range for random_number: ({}, {})", lower, upper);
+            m_engine.discard(3);
         }
 
         inline T operator()(void) noexcept
