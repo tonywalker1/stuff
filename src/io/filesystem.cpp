@@ -21,10 +21,10 @@
 
 namespace stuff::io {
 
-    core::byte_array read_as_bytes(const fs::path& filename, compression_type ct)
+    stuff::core::byte_array read_as_bytes(const fs::path& filename, compression_type ct)
     {
         try {
-            return detail::read_entire_file<core::byte_array>(
+            return detail::read_entire_file<stuff::core::byte_array>(
                 filename.native().c_str(),
                 ct,
                 std::ifstream::binary);

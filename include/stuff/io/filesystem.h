@@ -27,7 +27,7 @@ namespace fs = boost::filesystem;
 
 namespace stuff::io {
 
-    STUFF_DEFINE_EXCEPTION(filesystem_error, core::generic_error);
+    STUFF_DEFINE_EXCEPTION(filesystem_error, stuff::core::generic_error);
 
     // Alias for a vector of paths.
     using path_array = std::vector<fs::path>;
