@@ -42,7 +42,7 @@ add_subdirectory(src)
 ################################################################################
 # enable benchmarking and testing
 ################################################################################
-if(NOT WITHOUT_TESTS)
+if(NOT STUFF_WITHOUT_TESTS)
     enable_testing()
     add_subdirectory(tests)
 endif()

@@ -62,7 +62,7 @@ Platforms
 Use the following build options as follows:
 `cmake -D<option>=TRUE|FALSE|ON|OFF .. && make -j`
 
-* **WITHOUT_TESTS** [Default: OFF]  Do not build tests when ON.
+* **STUFF_WITHOUT_TESTS** [Default: OFF]  Do not build tests when ON.
 
 # Helping
 
