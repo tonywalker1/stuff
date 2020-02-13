@@ -7,6 +7,7 @@ find_package(Boost REQUIRED
         iostreams
         system
 )
+find_package(range-v3 REQUIRED)
 
 ################################################################################
 # build project
@@ -27,6 +28,7 @@ target_link_libraries(io
         Boost::filesystem
         Boost::iostreams
         Boost::system
+        range-v3::range-v3
 )
 
 target_include_directories(io
