@@ -25,11 +25,15 @@ If you find this library useful, I would love to hear about it!
   * **random:** Simple wrapper for generating random integers and real numbers.
 
 **core**
+  * **byte_array** Array of bytes. Useful for handling Unicode, compressed
+  data, etc.
   * **exception:** Ease defining new exceptions, formatting exception messages,
   checking preconditions/postconditions/invariants, handling nested exceptions,
   etc.
+  * **string_array** Array of strings (for convenience, clarity, and brevity).
   * **unicode** Encoding detection and fast conversions of ASCII saved as
   UTF-16/32.
+  * **units** Compile-time conversions for memory buffers, etc.
 
 **io**
   * **filesystem:** Transparent file compression, functional-like algorithms
