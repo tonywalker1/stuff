@@ -1,4 +1,5 @@
-// Copyright (C) 2019, 2020  Tony Walker
+//
+// Copyright (C) 2019-2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -12,6 +13,7 @@
 //
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
 
 //
 // Exception Handling
@@ -56,23 +58,26 @@
 //   }
 //
 #define STUFF_DEFINE_EXCEPTION(except, except_base) \
-    struct except : public except_base \
-    { \
-        explicit except(const char* msg)        : except_base(msg) {} \
+    struct except : public except_base { \
+        explicit except(const char* msg) : except_base(msg) {} \
         explicit except(const std::string& msg) : except_base(msg) {} \
     }
 
 
 namespace stuff::core {
 
+    //
     // Default error and base class for all other exceptions.
+    //
     STUFF_DEFINE_EXCEPTION(generic_error, std::runtime_error);
 
-    // Unwind any nested expections.
+    //
+    // Unwind any nested exceptions.
     // For example:
     //   catch (const std::exception& e) {
     //       std::cout << to_string(e) << '\n';
     //   }
+    //
     std::string to_string(const std::exception& e);
 
 } // namespace stuff::core
@@ -88,8 +93,8 @@ namespace stuff::core {
     throw except(std::string(#except ": ") + fmt::format(__VA_ARGS__))
 
 #define STUFF_NESTED_THROW(except, ...) \
-    std::throw_with_nested(except(std::string(#except ": ") \
-        + fmt::format(__VA_ARGS__)))
+    std::throw_with_nested( \
+        except(std::string(#except ": ") + fmt::format(__VA_ARGS__)))
 
 
 //
@@ -100,15 +105,19 @@ namespace stuff::core {
 //       "the answer should be {}", 42);
 //
 #define STUFF_ASSERT(cond, except, ...) \
-    if (!(cond)) \
-        throw except(std::string(#except ": ") + fmt::format(__VA_ARGS__))
+    (cond) \
+        ? (void)(0) \
+        : throw except(std::string(#except ": ") + fmt::format(__VA_ARGS__))
 
 #define STUFF_EXPECTS(cond, except, ...) \
-    if (!(cond)) \
-        throw except(std::string(#except ": ") + fmt::format(__VA_ARGS__))
+    (cond) \
+        ? (void)(0) \
+        : throw except(std::string(#except ": ") + fmt::format(__VA_ARGS__))
+
 
 #define STUFF_ENSURES(cond, except, ...) \
-    if (!(cond)) \
-        throw except(std::string(#except ": ") + fmt::format(__VA_ARGS__))
+    (cond) \
+        ? (void)(0) \
+        : throw except(std::string(#except ": ") + fmt::format(__VA_ARGS__))
 
 #endif // STUFF_CORE_EXCEPTION_H

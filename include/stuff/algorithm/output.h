@@ -1,4 +1,5 @@
-// Copyright (C) 2019, 2020  Tony Walker
+//
+// Copyright (C) 2019-2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -12,6 +13,7 @@
 //
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
 
 #ifndef STUFF_ALGORITHM_OUTPUT_H
 #define STUFF_ALGORITHM_OUTPUT_H

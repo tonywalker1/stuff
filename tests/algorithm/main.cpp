@@ -1,3 +1,4 @@
+//
 // Copyright (C) 2019, 2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
@@ -12,6 +13,8 @@
 //
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
 
 #define CATCH_CONFIG_MAIN
+
 #include <catch2/catch.hpp>

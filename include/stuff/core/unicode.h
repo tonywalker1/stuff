@@ -1,4 +1,5 @@
-// Copyright (C) 2019, 2020  Tony Walker
+//
+// Copyright (C) 2019-2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -12,13 +13,14 @@
 //
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
 
 #ifndef STUFF_CORE_UNICODE_H
 #define STUFF_CORE_UNICODE_H
 
+#include <string>
 #include <stuff/core/byte_array.h>
 #include <stuff/core/exception.h>
-#include <string>
 
 namespace stuff::core {
 

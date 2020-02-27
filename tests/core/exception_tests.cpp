@@ -1,3 +1,4 @@
+//
 // Copyright (C) 2019  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
@@ -12,65 +13,76 @@
 //
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
 
-#include <stuff/core/exception.h>
 #include <catch2/catch.hpp>
+#include <stuff/core/exception.h>
 
 using namespace stuff::core;
 
-SCENARIO("defining a new exception type", "[exception]") {
+SCENARIO("defining a new exception type", "[exception]")
+{
     STUFF_DEFINE_EXCEPTION(stuff, generic_error);
-    WHEN("throwing the exception") {
-        THEN("it can be caught by its type or base types") {
+    WHEN("throwing the exception")
+    {
+        THEN("it can be caught by its type or base types")
+        {
             CHECK_THROWS_AS(throw stuff {""}, stuff);
             CHECK_THROWS_AS(throw stuff {""}, generic_error);
             CHECK_THROWS_AS(throw stuff {""}, std::runtime_error);
             CHECK_THROWS_AS(throw stuff {""}, std::exception);
         }
-        THEN("the message should be returned") {
-            CHECK_THROWS_WITH(throw stuff {"the answer is 42"},
-                "the answer is 42");
+        THEN("the message should be returned")
+        {
+            CHECK_THROWS_WITH(
+                throw stuff {"the answer is 42"}, "the answer is 42");
         }
     }
 }
 
-SCENARIO("using the throw macro", "[exception]") {
-    THEN("the exception should be thrown") {
-        CHECK_THROWS_AS(STUFF_THROW(generic_error, "the answer is 42"),
-            generic_error);
+SCENARIO("using the throw macro", "[exception]")
+{
+    THEN("the exception should be thrown")
+    {
+        CHECK_THROWS_AS(
+            STUFF_THROW(generic_error, "the answer is 42"), generic_error);
     }
-    THEN("the message should be returned") {
+    THEN("the message should be returned")
+    {
         CHECK_THROWS_WITH(STUFF_THROW(generic_error, "the answer is 42"),
             "generic_error: the answer is 42");
     }
 }
 
-SCENARIO("using nested exceptions", "[exception]") {
+SCENARIO("using nested exceptions", "[exception]")
+{
     STUFF_DEFINE_EXCEPTION(inner, generic_error);
     STUFF_DEFINE_EXCEPTION(outer, generic_error);
-    auto f  =[]() {
-        try {
-            STUFF_THROW(inner, "computation error");
-        }
-        catch (const std::exception& e) {
-            try {
-                STUFF_NESTED_THROW(outer, "the answer should have been 42");
-            }
-            catch (const std::exception& e) {
-                throw;
-            }
-        }
+
+    auto f = []() {
+      try {
+          STUFF_THROW(inner, "computation error");
+      }
+      catch (const std::exception& e) {
+          try {
+              STUFF_NESTED_THROW(outer, "the answer should have been 42");
+          }
+          catch (const std::exception& e) {
+              throw;
+          }
+      }
     };
 
-    THEN("the nested messages should be returned") {
+    THEN("the nested messages should be returned")
+    {
         CHECK_THROWS_WITH(f(), "outer: the answer should have been 42");
         try {
             f();
         }
         catch (const std::exception& e) {
-            CHECK(to_string(e) ==
-                "outer: the answer should have been 42\n"
-                "  inner: computation error");
+            CHECK(to_string(e)
+                  == "outer: the answer should have been 42\n"
+                     "  inner: computation error");
         }
     }
 }

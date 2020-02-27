@@ -1,3 +1,4 @@
+//
 // Copyright (C) 2019, 2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
@@ -12,13 +13,14 @@
 //
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
 
 #ifndef STUFF_ALGORITHM_RANDOM_H
 #define STUFF_ALGORITHM_RANDOM_H
 
-#include <stuff/core/exception.h>
 #include <chrono>
 #include <random>
+#include <stuff/core/exception.h>
 
 namespace stuff::algorithm {
 
@@ -40,25 +42,26 @@ namespace stuff::algorithm {
         typename Engine = std::default_random_engine>
     class random_number {
     public:
-
-        random_number(T lower, T upper,
-            size_t seed = std::chrono::system_clock::now().time_since_epoch().count())
-        : m_distribution(lower, upper),
-          m_engine(seed)
+        random_number(T lower, T upper, size_t seed = get_seed())
+        : m_distribution(lower, upper), m_engine(seed)
         {
-            STUFF_EXPECTS(lower < upper,
-                random_error,
+            STUFF_EXPECTS(lower < upper, random_error,
                 "bad range for random_number: ({}, {})", lower, upper);
             m_engine.discard(3);
         }
 
-        inline T operator()(void) noexcept
+        inline T operator()() noexcept { return m_distribution(m_engine); }
+
+        static long get_seed() noexcept
         {
-            return m_distribution(m_engine);
+            using clock_t    = std::chrono::system_clock;
+            using duration_t = std::chrono::nanoseconds;
+            return std::chrono::duration_cast<duration_t>(
+                clock_t::now().time_since_epoch())
+                .count();
         }
 
     private:
-
         Distribution m_distribution;
         Engine       m_engine;
 

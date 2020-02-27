@@ -1,3 +1,4 @@
+//
 // Copyright (C) 2019, 2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
@@ -12,26 +13,42 @@
 //
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
 
-#include <stuff/io/filesystem.h>
-#include <stuff/io/detail/iops.h>
 #include <cstdlib>
 #include <fstream>
 #include <string>
+#include <stuff/io/filesystem.h>
 
 namespace stuff::io {
 
-    stuff::core::byte_array read_as_bytes(const fs::path& filename, compression_type ct)
+    namespace detail {
+
+        istream_wrapper::istream_wrapper(
+            const char* filename, std::ios_base::openmode mode)
+        : basic_stream_wrapper {filename, mode}
+        {
+        }
+
+        istream_wrapper::istream_wrapper(
+            const fs::path& filename, std::ios_base::openmode mode)
+        : basic_stream_wrapper {filename.native().c_str(), mode}
+        {
+        }
+
+
+    } // namespace detail
+
+    stuff::core::byte_array read_as_bytes(
+        const fs::path& filename, compression_type ct)
     {
         try {
             return detail::read_entire_file<stuff::core::byte_array>(
-                filename.native().c_str(),
-                ct,
-                std::ifstream::binary);
+                filename.native().c_str(), ct, std::ifstream::binary);
         }
         catch (const std::exception& e) {
-            STUFF_NESTED_THROW(filesystem_error,
-                "error reading \"{}\"", filename.native());
+            STUFF_NESTED_THROW(
+                filesystem_error, "error reading \"{}\"", filename.native());
         }
     }
 
@@ -39,13 +56,11 @@ namespace stuff::io {
     {
         try {
             return detail::read_entire_file<std::string>(
-                filename.native().c_str(),
-                ct,
-                std::ifstream::in);
+                filename.native().c_str(), ct, std::ifstream::in);
         }
         catch (const std::exception& e) {
-            STUFF_NESTED_THROW(filesystem_error,
-                "error reading \"{}\"", filename.native());
+            STUFF_NESTED_THROW(
+                filesystem_error, "error reading \"{}\"", filename.native());
         }
     }
 
@@ -85,9 +100,8 @@ namespace stuff::io {
             }
         }
         catch (const std::exception& e) {
-            STUFF_NESTED_THROW(filesystem_error,
-                "failed to expand \"{}\"", p);
+            STUFF_NESTED_THROW(filesystem_error, "failed to expand \"{}\"", p);
         }
     }
 
-} // namespace stuff
+} // namespace stuff::io

@@ -43,8 +43,10 @@ If you find this library useful, I would love to hear about it!
 
 See the code for a definitive list, but as for now:
 * Boost (https://www.boost.org/)
+  * Convert
   * Filesystem
   * IOStreams
+  * Optional
 * Catch2 (https://github.com/catchorg/Catch2)
 * libfmt (https://github.com/fmtlib/fmt)
 
@@ -57,16 +59,17 @@ Compilers
 Platforms
 * Linux (I use Debian Stable)
 
-# Getting Started
-
-...
-
 # Build Options
 
 Use the following build options as follows:
 `cmake -D<option>=TRUE|FALSE|ON|OFF .. && make -j`
 
 * **STUFF_WITHOUT_TESTS** [Default: OFF]  Do not build tests when ON.
+* **STUFF_WITHOUT_BENCHMARKS** [Default: OFF]  Do not build benchmarks when ON.
+
+# Getting Started
+
+...
 
 # Helping
 

@@ -1,3 +1,4 @@
+//
 // Copyright (C) 2019, 2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
@@ -12,6 +13,7 @@
 //
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
 
 #ifndef STUFF_CORE_BYTE_ARRAY_H
 #define STUFF_CORE_BYTE_ARRAY_H
@@ -20,8 +22,10 @@
 
 namespace stuff::core {
 
+    //
     // Provide an alias to a collection of bytes; primarily for binary blobs,
     // compressed data, etc.
+    //
     using byte_array = std::vector<char>;
 
 } // namespace stuff::core

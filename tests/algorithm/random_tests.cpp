@@ -1,3 +1,4 @@
+//
 // Copyright (C) 2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
@@ -12,9 +13,10 @@
 //
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
 
-#include <stuff/algorithm/random.h>
 #include <catch2/catch.hpp>
+#include <stuff/algorithm/random.h>
 #include <thread>
 
 using namespace stuff::algorithm;
@@ -22,12 +24,15 @@ using namespace stuff::algorithm;
 
 TEST_CASE("random number object creation", "[random]")
 {
-    SECTION("bad ranges should fail") {
+    SECTION("bad ranges should fail")
+    {
         REQUIRE_THROWS_AS(random_integer<int>(10, -10), random_error);
         REQUIRE_THROWS_AS(random_real<double>(10, -10), random_error);
     }
-    SECTION("Two generators should not generate the same values.") {
-        REQUIRE(random_integer<int>(-10, 10)()
-            != random_integer<int>(-10, 10)());
+
+    SECTION("Two generators should not generate the same values.")
+    {
+        REQUIRE(
+            random_integer<int>(-10, 10)() != random_integer<int>(-10, 10)());
     }
 }

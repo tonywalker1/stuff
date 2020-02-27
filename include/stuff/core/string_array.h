@@ -1,4 +1,5 @@
-// Copyright (C) 2019, 2020  Tony Walker
+//
+// Copyright (C) 2019-2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -12,17 +13,22 @@
 //
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
 
 #ifndef STUFF_CORE_STRING_ARRAY_H
 #define STUFF_CORE_STRING_ARRAY_H
 
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace stuff::core {
 
+    //
     // Alias to an array of strings.
-    using string_array = std::vector<std::string>;
+    //
+    using string_array      = std::vector<std::string>;
+    using string_view_array = std::vector<std::string_view>;
 
 } // namespace stuff::core
 

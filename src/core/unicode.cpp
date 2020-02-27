@@ -13,8 +13,8 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <stuff/core/unicode.h>
 #include <cstring>
+#include <stuff/core/unicode.h>
 
 namespace stuff::core {
 
@@ -26,19 +26,19 @@ namespace stuff::core {
             return encoding {"UTF-32LE", 4};
         }
         else if ((content.size() >= 4)
-            && (memcmp(content.data(), "\x00\x00\xFE\xFF", 4) == 0)) {
+                 && (memcmp(content.data(), "\x00\x00\xFE\xFF", 4) == 0)) {
             return encoding {"UTF-32BE", 4};
         }
         else if ((content.size() >= 3)
-            && (memcmp(content.data(), "\xEF\xBB\xBF", 3) == 0)) {
+                 && (memcmp(content.data(), "\xEF\xBB\xBF", 3) == 0)) {
             return encoding {"UTF-8", 3};
         }
         else if ((content.size() >= 2)
-            && (memcmp(content.data(), "\xFF\xFE", 2) == 0)) {
+                 && (memcmp(content.data(), "\xFF\xFE", 2) == 0)) {
             return encoding {"UTF-16LE", 2};
         }
         else if ((content.size() >= 2)
-            && (memcmp(content.data(), "\xFE\xFF", 2) == 0)) {
+                 && (memcmp(content.data(), "\xFE\xFF", 2) == 0)) {
             return encoding {"UTF-16BE", 2};
         }
         else {
@@ -49,7 +49,7 @@ namespace stuff::core {
     std::string to_8bit_ascii(const byte_array& content)
     {
         std::string tmp;
-        encoding enc {detect_bom(content)};
+        encoding    enc {detect_bom(content)};
         for (size_t idx = enc.bom_size; idx < content.size(); ++idx) {
             unsigned char val = content[idx];
             if ((32 <= val) && (val <= 126))
@@ -57,12 +57,12 @@ namespace stuff::core {
             else if (val == '\n')
                 tmp += val;
             else if (val == '\r')
-                continue;  // skip returns
+                continue; // skip returns
             else if (val == 0)
-                continue;  // skip embedded zeros (e.g., UTF-16 encodings)
+                continue; // skip embedded zeros (e.g., UTF-16 encodings)
             else
-                STUFF_THROW(unicode_error,
-                    "illegal char \'{}\' at position {}", int(val), idx);
+                STUFF_THROW(unicode_error, "illegal char \'{}\' at position {}",
+                    int(val), idx);
         }
         return tmp;
     }

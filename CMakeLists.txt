@@ -10,15 +10,15 @@ project(stuff LANGUAGES CXX)
 if (NOT CMAKE_CXX_FLAGS)
     message(STATUS "CMAKE_CXX_FLAGS not set. Using defaults.")
     set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wpedantic")
-endif()
+endif ()
 
 if (NOT CMAKE_BUILD_TYPE)
     message(STATUS "CMAKE_BUILD_TYPE not set. Using release.")
     set(CMAKE_BUILD_TYPE Release)
-endif()
+endif ()
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS        OFF)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(GNUInstallDirs)
 
@@ -42,15 +42,21 @@ add_subdirectory(src)
 ################################################################################
 # enable benchmarking and testing
 ################################################################################
-if(NOT STUFF_WITHOUT_TESTS)
+option(STUFF_WITHOUT_TESTS "Do not build tests when ON" OFF)
+if (NOT STUFF_WITHOUT_TESTS)
     enable_testing()
     add_subdirectory(tests)
-endif()
+endif ()
+
+option(STUFF_WITHOUT_BENCHMARKS "Do not build benchmarks when ON" OFF)
+if (NOT STUFF_WITHOUT_BENCHMARKS)
+    add_subdirectory(benchmarks)
+endif ()
 
 ################################################################################
 # cmake config
 ################################################################################
 install(
-    FILES       "${PROJECT_SOURCE_DIR}/cmake/stuffConfig.cmake"
+    FILES "${PROJECT_SOURCE_DIR}/cmake/stuffConfig.cmake"
     DESTINATION "lib/cmake/stuff"
 )

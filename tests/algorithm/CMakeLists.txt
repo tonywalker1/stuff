@@ -9,13 +9,13 @@ find_package(Catch2 REQUIRED)
 add_executable(stuff_algorithm_tests
     random_tests.cpp
     main.cpp
-)
+    )
 
 target_link_libraries(stuff_algorithm_tests
     PUBLIC
-        Catch2::Catch2
-        stuff::core
-)
+    Catch2::Catch2
+    stuff::core
+    )
 
 include(CTest)
 include(ParseAndAddCatchTests)
