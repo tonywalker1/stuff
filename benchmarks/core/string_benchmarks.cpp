@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <stuff/include/stuff/core/string.h> // NOLINT(modernize-deprecated-headers,hicpp-deprecated-headers)
+#include <stuff/core/string.h> // NOLINT(modernize-deprecated-headers,hicpp-deprecated-headers)
 #include <catch2/catch.hpp>
 #include <boost/convert.hpp>
 #include <boost/convert/lexical_cast.hpp>
