@@ -1,3 +1,4 @@
+//
 // Copyright (C) 2020  Tony Walker
 //
 // This program is free software: you can redistribute it and/or modify
@@ -12,6 +13,7 @@
 //
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
 
 #include <stuff/core/string.h> // NOLINT(modernize-deprecated-headers,hicpp-deprecated-headers)
 #include <catch2/catch.hpp>
@@ -51,10 +53,6 @@ TEST_CASE("convert strings to integers", "[string_benchmarks]") {
     };
 
     BENCHMARK("stuff::core::to_number") {
-        return stuff::core::to_number<long>(str).value();
-    };
-
-    BENCHMARK("stuff::core::to_number w/ missing") {
         return stuff::core::to_number<long>(str, 0);
     };
 
@@ -88,10 +86,6 @@ TEST_CASE("convert strings to doubles", "[string_benchmarks]") {
     };
 
     BENCHMARK("stuff::core::to_number") {
-        return stuff::core::to_number<double>(str).value();
-    };
-
-    BENCHMARK("stuff::core::to_number w/ missing") {
         return stuff::core::to_number<double>(str, 0);
     };
 

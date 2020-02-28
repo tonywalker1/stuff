@@ -32,7 +32,7 @@ namespace stuff::core {
             return m_head;
         }
 
-        size_t pos = m_tail.find(sep);
+        auto pos = m_tail.find(sep);
         if (pos == std::string_view::npos) {
             m_is_done = true;
             m_head    = m_tail;
@@ -52,7 +52,7 @@ namespace stuff::core {
         string_tokenizer  stok {view};
         do {
             result.emplace_back(stok.next(sep));
-        } while (!stok.is_done());
+        } while (stok);
         return result;
     }
 

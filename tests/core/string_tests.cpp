@@ -15,10 +15,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include <boost/optional/optional_io.hpp>
 #include <catch2/catch.hpp>
 #include <string>
-#include <stuff/core/string.h>
+#include <stuff/core/string.h> // NOLINT(modernize-deprecated-headers,hicpp-deprecated-headers)
 
 using namespace stuff::core;
 
@@ -33,6 +32,8 @@ TEST_CASE("string_tokenizer", "[string]")
         REQUIRE(stok.head().empty());
         REQUIRE(stok.tail().empty());
         REQUIRE(!stok.is_done());
+        REQUIRE_FALSE(!stok);
+        REQUIRE(stok);
 
         // calling next on an empty string should have no effect
         auto head = stok.next();
@@ -40,6 +41,8 @@ TEST_CASE("string_tokenizer", "[string]")
         REQUIRE(stok.head().empty());
         REQUIRE(stok.tail().empty());
         REQUIRE(stok.is_done());
+        REQUIRE(!stok);
+        REQUIRE_FALSE(stok);
     }
 
     SECTION("tokenizing one token")
@@ -162,12 +165,12 @@ TEST_CASE("string_tokenizer", "[string]")
 TEST_CASE("split a string with f()", "[string]")
 {
     string_view_array list;
-    auto lambda = [&list](std::string_view line) { list.push_back(line); };
 
     SECTION("tokenizing an empty string")
     {
         std::string text = "";
-        split_string(text, ' ', lambda);
+        split_string(text, ' ',
+            [&list](std::string_view line) { list.push_back(line); });
         REQUIRE(list.size() == 1);
         REQUIRE(list[0] == "");
     }
@@ -175,7 +178,8 @@ TEST_CASE("split a string with f()", "[string]")
     SECTION("tokenizing one token")
     {
         std::string text = "one";
-        split_string(text, ' ', lambda);
+        split_string(text, ' ',
+            [&list](std::string_view line) { list.push_back(line); });
         REQUIRE(list.size() == 1);
         REQUIRE(list[0] == "one");
     }
@@ -183,7 +187,8 @@ TEST_CASE("split a string with f()", "[string]")
     SECTION("tokenizing two tokens")
     {
         std::string text = "one two";
-        split_string(text, ' ', lambda);
+        split_string(text, ' ',
+            [&list](std::string_view line) { list.push_back(line); });
         REQUIRE(list.size() == 2);
         REQUIRE(list[0] == "one");
         REQUIRE(list[1] == "two");
@@ -192,7 +197,8 @@ TEST_CASE("split a string with f()", "[string]")
     SECTION("tokenizing three empty tokens")
     {
         std::string text = ",,";
-        split_string(text, ',', lambda);
+        split_string(text, ',',
+            [&list](std::string_view line) { list.push_back(line); });
         REQUIRE(list.size() == 3);
         REQUIRE(list[0] == "");
         REQUIRE(list[1] == "");
@@ -202,26 +208,28 @@ TEST_CASE("split a string with f()", "[string]")
 
 TEST_CASE("split a string into a string_view_array", "[string]")
 {
+    std::string text;
+
     SECTION("tokenizing an empty string")
     {
-        std::string text = "";
-        auto        list = split_string(text, ' ');
+        text      = "";
+        auto list = split_string(text, ' ');
         REQUIRE(list.size() == 1);
         REQUIRE(list[0] == "");
     }
 
     SECTION("tokenizing one token")
     {
-        std::string text = "one";
-        auto        list = split_string(text, ' ');
+        text      = "one";
+        auto list = split_string(text, ' ');
         REQUIRE(list.size() == 1);
         REQUIRE(list[0] == "one");
     }
 
     SECTION("tokenizing two tokens")
     {
-        std::string text = "one two";
-        auto        list = split_string(text, ' ');
+        text      = "one two";
+        auto list = split_string(text, ' ');
         REQUIRE(list.size() == 2);
         REQUIRE(list[0] == "one");
         REQUIRE(list[1] == "two");
@@ -229,8 +237,8 @@ TEST_CASE("split a string into a string_view_array", "[string]")
 
     SECTION("tokenizing three empty tokens")
     {
-        std::string text = ",,";
-        auto        list = split_string(text, ',');
+        text      = ",,";
+        auto list = split_string(text, ',');
         REQUIRE(list.size() == 3);
         REQUIRE(list[0] == "");
         REQUIRE(list[1] == "");
@@ -243,27 +251,19 @@ TEST_CASE("convert a string to a number", "[string]")
 
     SECTION("an empty string")
     {
-        // semantics for boost::optional<T> to_number(std::string_view view)
-        REQUIRE_THROWS(to_number<int>("").value());
-        // semantics for T to_number(std::string_view view, T missing)
         REQUIRE(to_number<int>("", 0) == 0);
         REQUIRE(to_number<int>("", 5) == 5);
     }
 
     SECTION("a bad string")
     {
-        // semantics for boost::optional<T> to_number(std::string_view view)
-        REQUIRE_THROWS(to_number<int>("12z34").value());
         // semantics for T to_number(std::string_view view, T missing)
         REQUIRE_THROWS(to_number<int>("12z34", 0));
     }
 
     SECTION("a good number")
     {
-        REQUIRE(to_number<int>("1").value() == 1);
         REQUIRE(to_number<int>("1", 0) == 1);
-
-        REQUIRE(to_number<int>("123456").value() == 123456);
         REQUIRE(to_number<int>("123456", 0) == 123456);
     }
 }

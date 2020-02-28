@@ -20,7 +20,6 @@
 
 #include <boost/convert.hpp>
 #include <boost/convert/spirit.hpp>
-#include <boost/optional.hpp>
 #include <string>
 #include <stuff/core/exception.h>
 #include <stuff/core/string_array.h>
@@ -39,7 +38,7 @@ namespace stuff::core {
     // Compared to the standard C/C++ functions (e.g., strtok) for tokenizing a
     // string, this class is safe but still powerful and high-performance.
     // However, for a simpler way to split a string (and examples of how to
-    // use this class, see
+    // use this class, see:
     //   split_string(std::string_view, char, Function)
     // and
     //   split_string(std::string_view, char)
@@ -48,20 +47,43 @@ namespace stuff::core {
     class string_tokenizer {
     public:
         //
-        // Note: non-owning constructor (and class). The string to which view
-        // points, must outlive the instance of string_tokenizer.
+        // Construct an instance that will tokenize view.
+        //
+        // The string to which view points, must outlive this instance of
+        // string_tokenizer.
         //
         explicit string_tokenizer(std::string_view view);
 
+        //
+        // Split the string into a head and tail by finding the first use of
+        // the separator (sep).
+        //
         std::string_view next(char sep = ' ');
 
+        //
+        // Has the entire string been tokenized?
+        //
         [[nodiscard]] inline bool is_done() const noexcept { return m_is_done; }
+        [[nodiscard]] inline explicit operator bool() const noexcept
+        {
+            return !m_is_done;
+        }
+        [[nodiscard]] inline bool operator!() const noexcept
+        {
+            return m_is_done;
+        }
 
+        //
+        // The current head token; next() should be called for a valid result.
+        //
         [[nodiscard]] inline std::string_view head() const noexcept
         {
             return m_head;
         }
 
+        //
+        // The current head token; next() should be called for a valid result.
+        //
         [[nodiscard]] inline std::string_view tail() const noexcept
         {
             return m_tail;
@@ -76,9 +98,12 @@ namespace stuff::core {
 
     //
     // Using the given separator, tokenize a string and call f() on each token.
-    // f() must take a std::string_view.
+    // f() must take a std::string_view. Note: Non-owning.
     //
-    // Note: Non-owning.
+    // Parameters:
+    //   view  String to tokenize.
+    //   sep   Separator that divides each token.
+    //   f     Function to call on each token.
     //
     template <typename Function>
     inline void split_string(std::string_view view, char sep, Function f)
@@ -86,22 +111,32 @@ namespace stuff::core {
         string_tokenizer stok {view};
         do {
             f(stok.next(sep));
-        } while (!stok.is_done());
+        } while (stok);
     }
 
     //
     // Using the given separator, tokenize the string and return each token in
-    // a stuff::core::string_view_array.
+    // a stuff::core::string_view_array. Note: Non-owning on input and output!!!
     // Of the methods to tokenize a string, this is the slowest.
     //
-    string_view_array split_string(std::string_view view, char sep);
+    // Parameters:
+    //   view  String to tokenize.
+    //   sep   Separator that divides each token.
+    //
+    // Returns:
+    //   A string_view_array containing each token.
+    //
+    [[nodiscard]] string_view_array split_string(
+        std::string_view view, char sep);
 
     //
     // Fast conversion of a string to a number.
     //
-    // This function returns the number wrapped in boost::optional. This gives
-    // you control over how to handle errors. For a function with different
-    // semantics, see to_number(std::sring_view view, T missing) below.
+    // An empty string will not be treated as an error, instead the value given
+    // by "missing" will be returned. Using zero, for example, can be
+    // really useful when parsing a CSV file with empty columns.
+    //
+    // This function will throw on error.
     //
     // Years ago, I wrote code that beat the standard C/C++ library functions
     // substantially. As I started to migrate that code into this library, I
@@ -113,33 +148,25 @@ namespace stuff::core {
     // of the best code and reserve the right to change the underlying
     // implementation!
     //
-    // You can build and run stuff/benchmarks/core/stuff_core_benchmarks to
-    // obtain performance numbers for your system.
+    // See stuff/benchmarks/core/stuff_core_benchmarks to obtain performance
+    // numbers for your system.
+    //
+    // Parameters:
+    //   T        Type of the number (e.g., int).
+    //   view     String to convert to a number of type T.
+    //   missing  Value to return if view is empty.
+    //
+    // Returns:
+    //   Number of type T.
     //
     template <typename T>
-    inline boost::optional<T> to_number(std::string_view view)
-    {
-        boost::cnv::spirit cnv;
-        return boost::convert<T>(view, cnv).value();
-    }
-
-    //
-    // Fast conversion of a string to a number.
-    //
-    // Unlike the function above, an empty string will not be treated as an
-    // error. For this function, the value given by missing will be returned
-    // instead. Using zero, for example, can be really useful when parsing
-    // a CSV file with empty columns.
-    //
-    // Unlike the function above, this function will throw on error.
-    //
-    template <typename T>
-    inline T to_number(std::string_view view, T missing)
+    [[nodiscard]] inline T to_number(std::string_view view, T missing)
     {
         if (view.empty()) {
             return missing;
         }
-        auto result = to_number<T>(view);
+        boost::cnv::spirit cnv;
+        auto               result = boost::convert<T>(view, cnv);
         STUFF_EXPECTS(result, string_conversion_error,
             "can not convert \"{}\" to an integer", view);
         return result.value();
