@@ -15,28 +15,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
-//
-// Exception Handling
-//
-// Having been influenced by Boost Exception, I tend to use exception types as
-// "tags" that identify the error source rather than file and line.
-// For example:
-//   STUFF_DEFINE_EXCEPTION(random_number_error, generic_error);
-// ...
-//   double get_random_double(double lower, double upper)
-//   {
-//       ...
-//       STUFF_EXPECTS(lower <= val, random_number_error, "some message");
-//       STUFF_EXPECTS(val < upper, random_number_error, "some message");
-//       ...
-//   }
-// This will generate the following message:
-//  "random_number_error: some message"
-//
-// You can use STUFF_* macros below to throw (possibly nested) exceptions, and
-// then unwind them with to_string().
-//
-
 #ifndef STUFF_CORE_EXCEPTION_H
 #define STUFF_CORE_EXCEPTION_H
 
@@ -45,10 +23,19 @@
 #include <string>
 
 //
-// Define new exception types, see generic_error below.
-// For example:
-//   STUFF_DEFINE_EXCEPTION(random_number_error, generic_error);
+// Simplify the definition of new exception types.
 //
+// Having been influenced by Boost Exception, I tend to use exception types as
+// "tags" that identify the error source rather than file and line. This macro
+// simplifies defining new exception types.
+//
+// Parameters:
+//   except       The new type (to be defined).
+//   except_base  The base class for the new type.
+//
+// For example, the following defines a new exception named random_number_error
+// that is derived from generic_error:
+//   STUFF_DEFINE_EXCEPTION(random_number_error, generic_error);
 //   try {
 //       ...
 //       throw random_number_error {"the answer is 42"};
@@ -63,31 +50,44 @@
         explicit except(const std::string& msg) : except_base(msg) {} \
     }
 
-
 namespace stuff::core {
 
     //
-    // Default error and base class for all other exceptions.
+    // Define generic_error: the base class for all other exception types used
+    // in this library.
+    //
+    // For example, the following defines a new exception named
+    // random_number_error that is derived from generic_error:
+    //   STUFF_DEFINE_EXCEPTION(random_number_error, generic_error);
     //
     STUFF_DEFINE_EXCEPTION(generic_error, std::runtime_error);
 
     //
-    // Unwind any nested exceptions.
+    // Convert all nested exception message(s) to a string.
+    //
     // For example:
     //   catch (const std::exception& e) {
-    //       std::cout << to_string(e) << '\n';
+    //      std::cout << to_string(e) << '\n';
     //   }
     //
     std::string to_string(const std::exception& e);
 
 } // namespace stuff::core
 
-
 //
 // Throw an exception with a formatted string.
-// Uses libfmt, see the site for libfmt for documentation.
+//
+// This library uses libfmt (will be included in C++20) to format exception
+// messages. See the site for libfmt for documentation.
+//
+// Parameters:
+//   except    The type of exception to throw.
+//   var_args  The exception message with arguments.
+//
 // For example:
 //   STUFF_THROW(universe_error, "the answer is {}", 42);
+// or
+//   STUFF_NESTED_THROW(universe_error, "the answer is {}", 42)
 //
 #define STUFF_THROW(except, ...) \
     throw except(std::string(#except ": ") + fmt::format(__VA_ARGS__))
@@ -96,9 +96,18 @@ namespace stuff::core {
     std::throw_with_nested( \
         except(std::string(#except ": ") + fmt::format(__VA_ARGS__)))
 
-
 //
 // Test preconditions, postconditions, and invariants.
+//
+// If the given condition is false, the macro below will throw the given error
+// with the given formatted message. I tend to use STUFF_ASSERT for invariants,
+// STUFF_EXPECTS for preconditions, and STUFF_ENSURES for postconditions.
+//
+// Parameters:
+//   cond      Condition to test and throw on false.
+//   except    The type of exception to throw if cond is false.
+//   var_args  The exception message with arguments.
+//
 // For example:
 //   STUFF_EXPECTS(get_answer() == 42,
 //       universe_error,
@@ -113,7 +122,6 @@ namespace stuff::core {
     (cond) \
         ? (void)(0) \
         : throw except(std::string(#except ": ") + fmt::format(__VA_ARGS__))
-
 
 #define STUFF_ENSURES(cond, except, ...) \
     (cond) \
