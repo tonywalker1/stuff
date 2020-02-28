@@ -65,12 +65,16 @@ namespace stuff::core {
     //
     // Convert all nested exception message(s) to a string.
     //
+    // Parameters:
+    //   e       Current exception.
+    //   indent  Spaces to indent successive nested exception messages.
+    //
     // For example:
     //   catch (const std::exception& e) {
     //      std::cout << to_string(e) << '\n';
     //   }
     //
-    std::string to_string(const std::exception& e);
+    std::string to_string(const std::exception& e, size_t indent = 2);
 
 } // namespace stuff::core
 
@@ -99,7 +103,7 @@ namespace stuff::core {
 //
 // Test preconditions, postconditions, and invariants.
 //
-// If the given condition is false, the macro below will throw the given error
+// If the given condition is false, the macros below will throw the given error
 // with the given formatted message. I tend to use STUFF_ASSERT for invariants,
 // STUFF_EXPECTS for preconditions, and STUFF_ENSURES for postconditions.
 //
