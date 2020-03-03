@@ -253,17 +253,21 @@ TEST_CASE("convert a string to a number", "[string]")
     {
         REQUIRE(to_number<int>("", 0) == 0);
         REQUIRE(to_number<int>("", 5) == 5);
+        REQUIRE_THROWS(to_number<int>(""));
     }
 
     SECTION("a bad string")
     {
         // semantics for T to_number(std::string_view view, T missing)
         REQUIRE_THROWS(to_number<int>("12z34", 0));
+        REQUIRE_THROWS(to_number<int>("12z34"));
     }
 
     SECTION("a good number")
     {
         REQUIRE(to_number<int>("1", 0) == 1);
+        REQUIRE(to_number<int>("1") == 1);
         REQUIRE(to_number<int>("123456", 0) == 123456);
+        REQUIRE(to_number<int>("123456") == 123456);
     }
 }

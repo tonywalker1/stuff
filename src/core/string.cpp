@@ -15,7 +15,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include <stuff/core/exception.h>
 #include <stuff/core/string.h> // NOLINT(modernize-deprecated-headers,hicpp-deprecated-headers)
 
 namespace stuff::core {

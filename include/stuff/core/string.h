@@ -172,6 +172,19 @@ namespace stuff::core {
         return result.value();
     }
 
+    //
+    // Same as above, but an empty string is considered an error.
+    //
+    template <typename T>
+    [[nodiscard]] inline T to_number(std::string_view view)
+    {
+        boost::cnv::spirit cnv;
+        auto               result = boost::convert<T>(view, cnv);
+        STUFF_EXPECTS(result, string_conversion_error,
+            "can not convert \"{}\" to an integer", view);
+        return result.value();
+    }
+
 } // namespace stuff::core
 
 #endif // STUFF_CORE_STRING_H
