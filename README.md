@@ -1,6 +1,6 @@
 # stuff
 
-Miscellaneous, random, eclectic C++ code and other stuff. ;-)
+A library of miscellaneous, random, eclectic C++ code and other stuff. ;-)
 
 # Introduction
 
@@ -27,10 +27,12 @@ If you find this library useful, I would love to hear about it!
 **core**
   * **byte_array** Array of bytes. Useful for handling Unicode, compressed
   data, etc.
+  * **datetime** Date/time convenience functions, fast I/O, etc.
   * **exception:** Ease defining new exceptions, formatting exception messages,
   checking preconditions/postconditions/invariants, handling nested exceptions,
   etc.
   * **string_array** Array of strings (for convenience, clarity, and brevity).
+  * **string** Fast string conversions, tokenizing, etc.
   * **unicode** Encoding detection and fast conversions of ASCII saved as
   UTF-16/32.
   * **units** Compile-time conversions for memory buffers, etc.
@@ -48,7 +50,8 @@ See the code for a definitive list, but as for now:
   * IOStreams
   * Optional
 * Catch2 (https://github.com/catchorg/Catch2)
-* libfmt (https://github.com/fmtlib/fmt)
+* Date (Accepted for C++20; https://github.com/HowardHinnant/date)
+* libfmt (Accepted for C++20; https://github.com/fmtlib/fmt)
 
 # Compilers and Platforms
 
@@ -61,11 +64,14 @@ Platforms
 
 # Build Options
 
-Use the following build options as follows:
-`cmake -D<option>=TRUE|FALSE|ON|OFF .. && make -j`
-
 * **STUFF_WITHOUT_TESTS** [Default: OFF]  Do not build tests when ON.
 * **STUFF_WITHOUT_BENCHMARKS** [Default: OFF]  Do not build benchmarks when ON.
+
+To use the above build options with CMake, do the following:
+```
+cmake -D<option>=ON|OFF .. && make -j
+```
+
 
 # Getting Started
 
