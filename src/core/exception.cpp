@@ -19,10 +19,6 @@
 
 namespace stuff::core {
 
-#ifdef __clang__
-    #pragma clang diagnostic push
-    #pragma ide diagnostic   ignored "InfiniteRecursion"
-#endif
     void format_exception(
         std::string& str, const std::exception& e, size_t indent, size_t level)
     {
@@ -41,9 +37,6 @@ namespace stuff::core {
             format_exception(str, e, indent, ++level);
         }
     }
-#ifdef __clang__
-    #pragma clang diagnostic pop
-#endif
 
     std::string to_string(const std::exception& e, size_t indent)
     {
