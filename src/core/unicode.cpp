@@ -25,25 +25,25 @@ namespace stuff::core {
             && (memcmp(content.data(), "\xFF\xFE\x00\x00", 4) == 0)) {
             return encoding {"UTF-32LE", 4};
         }
-        else if ((content.size() >= 4)
+        if ((content.size() >= 4)
                  && (memcmp(content.data(), "\x00\x00\xFE\xFF", 4) == 0)) {
             return encoding {"UTF-32BE", 4};
         }
-        else if ((content.size() >= 3)
+        if ((content.size() >= 3)
                  && (memcmp(content.data(), "\xEF\xBB\xBF", 3) == 0)) {
             return encoding {"UTF-8", 3};
         }
-        else if ((content.size() >= 2)
+        if ((content.size() >= 2)
                  && (memcmp(content.data(), "\xFF\xFE", 2) == 0)) {
             return encoding {"UTF-16LE", 2};
         }
-        else if ((content.size() >= 2)
+        if ((content.size() >= 2)
                  && (memcmp(content.data(), "\xFE\xFF", 2) == 0)) {
             return encoding {"UTF-16BE", 2};
         }
-        else {
-            return encoding {"unknown", 0};
-        }
+        // otherwise, we don't know...
+        return encoding {"unknown", 0};
+
     }
 
     std::string to_8bit_ascii(const byte_array& content)
@@ -52,17 +52,22 @@ namespace stuff::core {
         encoding    enc {detect_bom(content)};
         for (size_t idx = enc.bom_size; idx < content.size(); ++idx) {
             unsigned char val = content[idx];
-            if ((32 <= val) && (val <= 126))
+            if ((32 <= val) && (val <= 126)) {
                 tmp += val;
-            else if (val == '\n')
+            }
+            else if (val == '\n') {
                 tmp += val;
-            else if (val == '\r')
+            }
+            else if (val == '\r') {
                 continue; // skip returns
-            else if (val == 0)
+            }
+            else if (val == 0) {
                 continue; // skip embedded zeros (e.g., UTF-16 encodings)
-            else
+            }
+            else {
                 STUFF_THROW(unicode_error, "illegal char \'{}\' at position {}",
-                    int(val), idx);
+                int(val), idx);
+            }
         }
         return tmp;
     }
