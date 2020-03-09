@@ -56,7 +56,7 @@ namespace stuff::io {
             {
             }
 
-            inline operator bool() { return m_stream.good(); }
+            inline explicit operator bool() { return m_stream.good(); }
 
             [[nodiscard]] inline bool good() const noexcept
             {

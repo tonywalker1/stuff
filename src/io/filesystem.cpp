@@ -78,8 +78,9 @@ namespace stuff::io {
     fs::path home_dir()
     {
         const char* env = std::getenv("HOME");
-        if (env == nullptr)
+        if (env == nullptr) {
             STUFF_THROW(filesystem_error, "home directory lookup failed");
+        }
         return fs::path(env);
     }
 
@@ -89,15 +90,14 @@ namespace stuff::io {
             if (p == "~") {
                 return home_dir();
             }
-            else if (p.substr(0, 2) == "~/") {
+            if (p.substr(0, 2) == "~/") {
                 p.remove_prefix(1);
                 fs::path tmp {home_dir()};
                 tmp.append(p.begin(), p.end());
                 return tmp;
             }
-            else {
-                return fs::path {p.begin(), p.end()};
-            }
+            // otherwise, return a copy of the given path
+            return fs::path {p.begin(), p.end()};
         }
         catch (const std::exception& e) {
             STUFF_NESTED_THROW(filesystem_error, "failed to expand \"{}\"", p);

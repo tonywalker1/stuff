@@ -20,7 +20,7 @@
 namespace stuff::core {
 
     string_tokenizer::string_tokenizer(std::string_view view)
-    : m_is_done {false}, m_head {}, m_tail {view}
+    : m_is_done {false}, m_tail {view}
     {
     }
 
@@ -36,13 +36,12 @@ namespace stuff::core {
             m_is_done = true;
             m_head    = m_tail;
             m_tail    = std::string_view {};
-            return m_head;
         }
         else {
             m_head = m_tail.substr(0, pos);
             m_tail.remove_prefix(pos + 1);
-            return m_head;
         }
+        return m_head;
     }
 
     string_view_array split_string(std::string_view view, char sep)

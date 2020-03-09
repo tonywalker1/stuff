@@ -26,24 +26,23 @@ namespace stuff::core {
             return encoding {"UTF-32LE", 4};
         }
         if ((content.size() >= 4)
-                 && (memcmp(content.data(), "\x00\x00\xFE\xFF", 4) == 0)) {
+            && (memcmp(content.data(), "\x00\x00\xFE\xFF", 4) == 0)) {
             return encoding {"UTF-32BE", 4};
         }
         if ((content.size() >= 3)
-                 && (memcmp(content.data(), "\xEF\xBB\xBF", 3) == 0)) {
+            && (memcmp(content.data(), "\xEF\xBB\xBF", 3) == 0)) {
             return encoding {"UTF-8", 3};
         }
         if ((content.size() >= 2)
-                 && (memcmp(content.data(), "\xFF\xFE", 2) == 0)) {
+            && (memcmp(content.data(), "\xFF\xFE", 2) == 0)) {
             return encoding {"UTF-16LE", 2};
         }
         if ((content.size() >= 2)
-                 && (memcmp(content.data(), "\xFE\xFF", 2) == 0)) {
+            && (memcmp(content.data(), "\xFE\xFF", 2) == 0)) {
             return encoding {"UTF-16BE", 2};
         }
         // otherwise, we don't know...
         return encoding {"unknown", 0};
-
     }
 
     std::string to_8bit_ascii(const byte_array& content)
@@ -66,7 +65,7 @@ namespace stuff::core {
             }
             else {
                 STUFF_THROW(unicode_error, "illegal char \'{}\' at position {}",
-                int(val), idx);
+                    int(val), idx);
             }
         }
         return tmp;
