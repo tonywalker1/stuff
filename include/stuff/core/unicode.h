@@ -19,7 +19,7 @@
 #define STUFF_CORE_UNICODE_H
 
 #include <string>
-#include <stuff/core/byte_array.h>
+#include <stuff/container/byte_array.h>
 #include <stuff/core/exception.h>
 
 namespace stuff::core {
@@ -39,7 +39,7 @@ namespace stuff::core {
     // Notes:
     // - only detects recent/common BOM's
     //
-    encoding detect_bom(const byte_array& content);
+    encoding detect_bom(const container::byte_array& content);
 
     //
     // Convert ASCII encoded as UTF-16 or UTF-32 into an 8-bit ASCII string.
@@ -53,7 +53,7 @@ namespace stuff::core {
     // Notes:
     // - removes all control codes (except new lines)
     //
-    std::string to_8bit_ascii(const byte_array& content);
+    std::string to_8bit_ascii(const container::byte_array& content);
 
     // FIXME: Should provide general purpose charset detection and conversion
     // with libicu. Should employ to_8bit_ascii() fast-path.

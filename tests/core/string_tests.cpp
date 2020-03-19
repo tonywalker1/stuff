@@ -20,6 +20,7 @@
 #include <stuff/core/string.h> // NOLINT(modernize-deprecated-headers,hicpp-deprecated-headers)
 
 using namespace stuff::core;
+using namespace stuff::container;
 
 TEST_CASE("string_tokenizer", "[string]")
 {
@@ -164,6 +165,7 @@ TEST_CASE("string_tokenizer", "[string]")
 
 TEST_CASE("split a string with f()", "[string]")
 {
+    using namespace stuff::core;
     string_view_array list;
 
     SECTION("tokenizing an empty string")

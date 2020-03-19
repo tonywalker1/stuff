@@ -44,10 +44,10 @@ namespace stuff::core {
         return m_head;
     }
 
-    string_view_array split_string(std::string_view view, char sep)
+    container::string_view_array split_string(std::string_view view, char sep)
     {
-        string_view_array result;
-        string_tokenizer  stok {view};
+        container::string_view_array result;
+        string_tokenizer             stok {view};
         do {
             result.emplace_back(stok.next(sep));
         } while (stok);

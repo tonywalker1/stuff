@@ -18,7 +18,7 @@
 
 namespace stuff::core {
 
-    encoding detect_bom(const byte_array& content)
+    encoding detect_bom(const container::byte_array& content)
     {
         // Always, check for longer encodings first!
         if ((content.size() >= 4)
@@ -45,7 +45,7 @@ namespace stuff::core {
         return encoding {"unknown", 0};
     }
 
-    std::string to_8bit_ascii(const byte_array& content)
+    std::string to_8bit_ascii(const container::byte_array& content)
     {
         std::string tmp;
         encoding    enc {detect_bom(content)};

@@ -21,8 +21,8 @@
 #include <boost/convert.hpp>
 #include <boost/convert/spirit.hpp>
 #include <string>
+#include <stuff/container/string_array.h>
 #include <stuff/core/exception.h>
-#include <stuff/core/string_array.h>
 
 namespace stuff::core {
 
@@ -126,7 +126,7 @@ namespace stuff::core {
     // Returns:
     //   A string_view_array containing each token.
     //
-    [[nodiscard]] string_view_array split_string(
+    [[nodiscard]] container::string_view_array split_string(
         std::string_view view, char sep);
 
     //

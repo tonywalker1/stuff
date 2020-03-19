@@ -39,11 +39,11 @@ namespace stuff::io {
 
     } // namespace detail
 
-    stuff::core::byte_array read_as_bytes(
+    container::byte_array read_as_bytes(
         const fs::path& filename, compression_type ct)
     {
         try {
-            return detail::read_entire_file<stuff::core::byte_array>(
+            return detail::read_entire_file<container::byte_array>(
                 filename.native().c_str(), ct, std::ifstream::binary);
         }
         catch (const std::exception& e) {

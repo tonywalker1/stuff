@@ -10,3 +10,4 @@ Checks: >-
     performance-*,
     portability-*,
     readability-*
+HeaderFilterRegex: '.*'

@@ -24,14 +24,16 @@ If you find this library useful, I would love to hear about it!
   * **output:** Simplify dumping containers. Great for debugging.
   * **random:** Simple wrapper for generating random integers and real numbers.
 
-**core**
+**container**
   * **byte_array** Array of bytes. Useful for handling Unicode, compressed
+  * **string_array** Array of strings (for convenience, clarity, and brevity).
+
+**core**
   data, etc.
   * **datetime** Date/time convenience functions, fast I/O, etc.
   * **exception:** Ease defining new exceptions, formatting exception messages,
   checking preconditions/postconditions/invariants, handling nested exceptions,
   etc.
-  * **string_array** Array of strings (for convenience, clarity, and brevity).
   * **string** Fast string conversions, tokenizing, etc.
   * **unicode** Encoding detection and fast conversions of ASCII saved as
   UTF-16/32.

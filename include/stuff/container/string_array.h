@@ -15,14 +15,14 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
-#ifndef STUFF_CORE_STRING_ARRAY_H
-#define STUFF_CORE_STRING_ARRAY_H
+#ifndef STUFF_CONTAINER_STRING_ARRAY_H
+#define STUFF_CONTAINER_STRING_ARRAY_H
 
 #include <string>
 #include <string_view>
 #include <vector>
 
-namespace stuff::core {
+namespace stuff::container {
 
     //
     // Alias to an array of strings.
@@ -30,6 +30,6 @@ namespace stuff::core {
     using string_array      = std::vector<std::string>;
     using string_view_array = std::vector<std::string_view>;
 
-} // namespace stuff::core
+} // namespace stuff::container
 
-#endif // STUFF_CORE_STRING_ARRAY_H
+#endif // STUFF_CONTAINER_STRING_ARRAY_H

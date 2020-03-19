@@ -27,7 +27,7 @@
 #include <iterator>
 #include <string>
 #include <string_view>
-#include <stuff/core/byte_array.h>
+#include <stuff/container/byte_array.h>
 #include <stuff/core/exception.h>
 #include <utility>
 
@@ -139,7 +139,7 @@ namespace stuff::io {
 
 
     // Read an entire file as text or binary data.
-    core::byte_array read_as_bytes(
+    container::byte_array read_as_bytes(
         const fs::path& filename, compression_type ct = compression_type::none);
 
     std::string read_as_text(

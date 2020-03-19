@@ -15,12 +15,12 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
-#ifndef STUFF_CORE_BYTE_ARRAY_H
-#define STUFF_CORE_BYTE_ARRAY_H
+#ifndef STUFF_CONTAINER_BYTE_ARRAY_H
+#define STUFF_CONTAINER_BYTE_ARRAY_H
 
 #include <vector>
 
-namespace stuff::core {
+namespace stuff::container {
 
     //
     // Provide an alias to a collection of bytes; primarily for binary blobs,
@@ -28,6 +28,6 @@ namespace stuff::core {
     //
     using byte_array = std::vector<char>;
 
-} // namespace stuff::core
+} // namespace stuff::container
 
-#endif // STUFF_CORE_BYTE_ARRAY_H
+#endif // STUFF_CONTAINER_BYTE_ARRAY_H
