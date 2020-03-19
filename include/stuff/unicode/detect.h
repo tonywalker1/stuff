@@ -15,16 +15,13 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
-#ifndef STUFF_CORE_UNICODE_H
-#define STUFF_CORE_UNICODE_H
+#ifndef STUFF_UNICODE_DETECT_H
+#define STUFF_UNICODE_DETECT_H
 
 #include <string>
 #include <stuff/container/byte_array.h>
-#include <stuff/core/exception.h>
 
-namespace stuff::core {
-
-    STUFF_DEFINE_EXCEPTION(unicode_error, generic_error);
+namespace stuff::unicode {
 
     //
     // Encoding information for text.
@@ -41,23 +38,6 @@ namespace stuff::core {
     //
     encoding detect_bom(const container::byte_array& content);
 
-    //
-    // Convert ASCII encoded as UTF-16 or UTF-32 into an 8-bit ASCII string.
-    //
-    // I occasionally get data from others that is ASCII but was generated on
-    // a system or with a language that uses UTF-16. This function
-    // does a quick and dirty conversion. It does no language detection. Only
-    // use it when you are certain your data is ASCII saved as UTF-16/32.
-    // Will work if passed ASCII as 8-bit chars or UTF-8, but there is no point.
-    //
-    // Notes:
-    // - removes all control codes (except new lines)
-    //
-    std::string to_8bit_ascii(const container::byte_array& content);
+} // namespace stuff::unicode
 
-    // FIXME: Should provide general purpose charset detection and conversion
-    // with libicu. Should employ to_8bit_ascii() fast-path.
-
-} // namespace stuff::core
-
-#endif // STUFF_CORE_UNICODE_H
+#endif // STUFF_UNICODE_DETECT_H

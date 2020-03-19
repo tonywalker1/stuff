@@ -1,29 +1,27 @@
 ################################################################################
 # find dependencies
 ################################################################################
-find_package(fmt REQUIRED)
 
 ################################################################################
 # build project
 ################################################################################
-add_library(core SHARED
-    exception.cpp
-    string.cpp
+add_library(unicode SHARED
+    convert.cpp
+    detect.cpp
     )
-set_target_properties(core PROPERTIES OUTPUT_NAME "stuff_core")
-add_library(stuff::core ALIAS core)
+set_target_properties(unicode PROPERTIES OUTPUT_NAME "stuff_unicode")
+add_library(stuff::unicode ALIAS unicode)
 
-target_compile_features(core
+target_compile_features(unicode
     PUBLIC
     cxx_std_17
     )
 
-target_link_libraries(core
+target_link_libraries(unicode
     PUBLIC
-    fmt
     )
 
-target_include_directories(core
+target_include_directories(unicode
     PUBLIC
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${PROJECT_BUILD_DIR}/include>
@@ -33,22 +31,22 @@ target_include_directories(core
 ################################################################################
 # install project
 ################################################################################
-install(TARGETS core
-    EXPORT stuff_coreTargets
+install(TARGETS unicode
+    EXPORT stuff_unicodeTargets
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     )
 install(
-    DIRECTORY ${PROJECT_SOURCE_DIR}/include/stuff/core
-    DESTINATION include/stuff/core
+    DIRECTORY ${PROJECT_SOURCE_DIR}/include/stuff/unicode
+    DESTINATION include/stuff/unicode
 )
-install(EXPORT stuff_coreTargets
-    FILE stuff_coreTargets.cmake
+install(EXPORT stuff_unicodeTargets
+    FILE stuff_unicodeTargets.cmake
     NAMESPACE stuff::
-    DESTINATION lib/cmake/stuff_core
+    DESTINATION lib/cmake/stuff_unicode
     )
 install(
-    FILES ${PROJECT_SOURCE_DIR}/cmake/stuff_coreConfig.cmake
-    DESTINATION lib/cmake/stuff_core
+    FILES ${PROJECT_SOURCE_DIR}/cmake/stuff_unicodeConfig.cmake
+    DESTINATION lib/cmake/stuff_unicode
 )
