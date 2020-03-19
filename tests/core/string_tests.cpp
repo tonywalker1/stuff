@@ -17,7 +17,7 @@
 
 #include <catch2/catch.hpp>
 #include <string>
-#include <stuff/core/string.h> // NOLINT(modernize-deprecated-headers,hicpp-deprecated-headers)
+#include <stuff/core/string.h>
 
 using namespace stuff::core;
 using namespace stuff::container;
@@ -167,10 +167,11 @@ TEST_CASE("split a string with f()", "[string]")
 {
     using namespace stuff::core;
     string_view_array list;
+    std::string       text;
 
     SECTION("tokenizing an empty string")
     {
-        std::string text = "";
+        text = "";
         split_string(text, ' ',
             [&list](std::string_view line) { list.push_back(line); });
         REQUIRE(list.size() == 1);
@@ -179,7 +180,7 @@ TEST_CASE("split a string with f()", "[string]")
 
     SECTION("tokenizing one token")
     {
-        std::string text = "one";
+        text = "one";
         split_string(text, ' ',
             [&list](std::string_view line) { list.push_back(line); });
         REQUIRE(list.size() == 1);
@@ -188,7 +189,7 @@ TEST_CASE("split a string with f()", "[string]")
 
     SECTION("tokenizing two tokens")
     {
-        std::string text = "one two";
+        text = "one two";
         split_string(text, ' ',
             [&list](std::string_view line) { list.push_back(line); });
         REQUIRE(list.size() == 2);
@@ -198,7 +199,7 @@ TEST_CASE("split a string with f()", "[string]")
 
     SECTION("tokenizing three empty tokens")
     {
-        std::string text = ",,";
+        text = ",,";
         split_string(text, ',',
             [&list](std::string_view line) { list.push_back(line); });
         REQUIRE(list.size() == 3);
