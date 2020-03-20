@@ -15,9 +15,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include <stuff/core/string.h>
+#include <stuff/string/split.h>
 
-namespace stuff::core {
+namespace stuff::string {
 
     string_tokenizer::string_tokenizer(std::string_view view)
     : m_is_done {false}, m_tail {view}
@@ -54,4 +54,4 @@ namespace stuff::core {
         return result;
     }
 
-} // namespace stuff::core
+} // namespace stuff::string

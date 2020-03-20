@@ -15,18 +15,14 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
-#ifndef STUFF_CORE_STRING_H
-#define STUFF_CORE_STRING_H
-
-#include <boost/convert.hpp>
-#include <boost/convert/spirit.hpp>
 #include <string>
+#include <string_view>
 #include <stuff/container/string_array.h>
-#include <stuff/core/exception.h>
 
-namespace stuff::core {
+#ifndef STUFF_STRING_SPLIT_H
+    #define STUFF_STRING_SPLIT_H
 
-    STUFF_DEFINE_EXCEPTION(string_conversion_error, generic_error);
+namespace stuff::string {
 
     //
     // Non-owning string tokenizer (i.e., split a string into parts).
@@ -129,62 +125,6 @@ namespace stuff::core {
     [[nodiscard]] container::string_view_array split_string(
         std::string_view view, char sep);
 
-    //
-    // Fast conversion of a string to a number.
-    //
-    // An empty string will not be treated as an error, instead the value given
-    // by "missing" will be returned. Using zero, for example, can be
-    // really useful when parsing a CSV file with empty columns.
-    //
-    // This function will throw on error.
-    //
-    // Years ago, I wrote code that beat the standard C/C++ library functions
-    // substantially. As I started to migrate that code into this library, I
-    // noticed that the standard library had improved substantially. Also, some
-    // of the boost::convert converters were on par with my code. Because it is
-    // always better to use code from better programmers, I switched to
-    // boost::convert. There are a couple of lessons here, but one is that
-    // C++ and Boost are always evolving. Periodically, I will benchmark some
-    // of the best code and reserve the right to change the underlying
-    // implementation!
-    //
-    // See stuff/benchmarks/core/stuff_core_benchmarks to obtain performance
-    // numbers for your system.
-    //
-    // Parameters:
-    //   T        Type of the number (e.g., int).
-    //   view     String to convert to a number of type T.
-    //   missing  Value to return if view is empty.
-    //
-    // Returns:
-    //   Number of type T.
-    //
-    template <typename T>
-    [[nodiscard]] inline T to_number(std::string_view view, T missing)
-    {
-        if (view.empty()) {
-            return missing;
-        }
-        boost::cnv::spirit cnv;
-        auto               result = boost::convert<T>(view, cnv);
-        STUFF_EXPECTS(result, string_conversion_error,
-            "can not convert \"{}\" to an integer", view);
-        return result.value();
-    }
+} // namespace stuff::string
 
-    //
-    // Same as above, but an empty string is considered an error.
-    //
-    template <typename T>
-    [[nodiscard]] inline T to_number(std::string_view view)
-    {
-        boost::cnv::spirit cnv;
-        auto               result = boost::convert<T>(view, cnv);
-        STUFF_EXPECTS(result, string_conversion_error,
-            "can not convert \"{}\" to an integer", view);
-        return result.value();
-    }
-
-} // namespace stuff::core
-
-#endif // STUFF_CORE_STRING_H
+#endif // STUFF_STRING_SPLIT_H
