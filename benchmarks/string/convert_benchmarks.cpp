@@ -21,9 +21,9 @@
 #include <boost/convert/strtol.hpp>
 #include <catch2/catch.hpp>
 #include <string>
-#include <stuff/core/string.h>
+#include <stuff/string/convert.h>
 
-using namespace stuff::core;
+using namespace stuff::string;
 
 TEST_CASE("convert strings to integers", "[string_benchmarks]")
 {
@@ -53,9 +53,7 @@ TEST_CASE("convert strings to integers", "[string_benchmarks]")
     };
 
     BENCHMARK("stuff::core::to_number")
-    {
-        return stuff::core::to_number<long>(str, 0);
-    };
+    { return to_number<long>(str, 0); };
 }
 
 TEST_CASE("convert strings to doubles", "[string_benchmarks]")
@@ -86,7 +84,5 @@ TEST_CASE("convert strings to doubles", "[string_benchmarks]")
     };
 
     BENCHMARK("stuff::core::to_number")
-    {
-        return stuff::core::to_number<double>(str, 0);
-    };
+    { return to_number<double>(str, 0); };
 }

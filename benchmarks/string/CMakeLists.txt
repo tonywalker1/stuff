@@ -6,18 +6,13 @@ find_package(Catch2 REQUIRED)
 ################################################################################
 # build project
 ################################################################################
-add_executable(stuff_core_tests
-    exception_tests.cpp
+add_compile_definitions(CATCH_CONFIG_ENABLE_BENCHMARKING)
+add_executable(stuff_string_benchmarks
     main.cpp
-#    string_tests.cpp
-    units_tests.cpp
+    convert_benchmarks.cpp
     )
 
-target_link_libraries(stuff_core_tests
+target_link_libraries(stuff_string_benchmarks
     Catch2::Catch2
-    stuff::core
+    stuff::string
     )
-
-include(CTest)
-include(ParseAndAddCatchTests)
-ParseAndAddCatchTests(stuff_core_tests)

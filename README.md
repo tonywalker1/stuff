@@ -34,12 +34,15 @@ If you find this library useful, I would love to hear about it!
   * **exception:** Ease defining new exceptions, formatting exception messages,
   checking preconditions/postconditions/invariants, handling nested exceptions,
   etc.
-  * **string** Fast string conversions, tokenizing, etc.
   * **units** Compile-time conversions for memory buffers, etc.
 
 **io**
   * **filesystem:** Transparent file compression, functional-like algorithms
   for files and directories, etc.
+
+**string**
+  * **convert** Fast string to integer/floating point conversions.
+  * **split** Fast string tokenizing.
 
 **unicode**
   * **detect** Encoding detection.

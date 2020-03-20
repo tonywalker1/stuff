@@ -17,10 +17,10 @@
 
 #include <catch2/catch.hpp>
 #include <string>
-#include <stuff/core/string.h>
+#include <stuff/string/split.h>
 
-using namespace stuff::core;
 using namespace stuff::container;
+using namespace stuff::string;
 
 TEST_CASE("string_tokenizer", "[string]")
 {
@@ -165,7 +165,6 @@ TEST_CASE("string_tokenizer", "[string]")
 
 TEST_CASE("split a string with f()", "[string]")
 {
-    using namespace stuff::core;
     string_view_array list;
     std::string       text;
 
@@ -246,31 +245,5 @@ TEST_CASE("split a string into a string_view_array", "[string]")
         REQUIRE(list[0] == "");
         REQUIRE(list[1] == "");
         REQUIRE(list[2] == "");
-    }
-}
-
-TEST_CASE("convert a string to a number", "[string]")
-{
-
-    SECTION("an empty string")
-    {
-        REQUIRE(to_number<int>("", 0) == 0);
-        REQUIRE(to_number<int>("", 5) == 5);
-        REQUIRE_THROWS(to_number<int>(""));
-    }
-
-    SECTION("a bad string")
-    {
-        // semantics for T to_number(std::string_view view, T missing)
-        REQUIRE_THROWS(to_number<int>("12z34", 0));
-        REQUIRE_THROWS(to_number<int>("12z34"));
-    }
-
-    SECTION("a good number")
-    {
-        REQUIRE(to_number<int>("1", 0) == 1);
-        REQUIRE(to_number<int>("1") == 1);
-        REQUIRE(to_number<int>("123456", 0) == 123456);
-        REQUIRE(to_number<int>("123456") == 123456);
     }
 }
