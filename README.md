@@ -36,6 +36,11 @@ If you find this library useful, I would love to hear about it!
   etc.
   * **units** Compile-time conversions for memory buffers, etc.
 
+**datetime**
+  * **types** Wrapper for types (as C++20 evolves) and bake-in nanoseconds.
+  * **datetime** Various, useful date/time operations.
+  * **financial** Date/time operations related to financial data.
+
 **io**
   * **filesystem:** Transparent file compression, functional-like algorithms
   for files and directories, etc.
