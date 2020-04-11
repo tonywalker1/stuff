@@ -30,7 +30,6 @@ If you find this library useful, I would love to hear about it!
   * **string_array** Array of strings (for convenience, clarity, and brevity).
 
 **core**
-  * **datetime** Date/time convenience functions, fast I/O, etc.
   * **exception:** Ease defining new exceptions, formatting exception messages,
   checking preconditions/postconditions/invariants, handling nested exceptions,
   etc.
