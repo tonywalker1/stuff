@@ -52,9 +52,13 @@ namespace stuff::string {
 
         //
         // Split the string into a head and tail by finding the first use of
-        // the separator (sep).
+        // the separator (sep). The second version takes a list of separators
+        // (as a string_view) and will split a string on the first of any
+        // separators in the list. This second version is a little more costly
+        // on CPU cycles.
         //
         std::string_view next(char sep = ' ');
+        std::string_view next(std::string_view sep_list);
 
         //
         // Has the entire string been tokenized?
@@ -78,7 +82,7 @@ namespace stuff::string {
         }
 
         //
-        // The current head token; next() should be called for a valid result.
+        // The current tail token; next() should be called for a valid result.
         //
         [[nodiscard]] inline std::string_view tail() const noexcept
         {

@@ -44,6 +44,26 @@ namespace stuff::string {
         return m_head;
     }
 
+    std::string_view string_tokenizer::next(std::string_view sep_list)
+    {
+        if (m_is_done) {
+            m_head = std::string_view {};
+            return m_head;
+        }
+
+        auto pos = m_tail.find_first_of(sep_list);
+        if (pos == std::string_view::npos) {
+            m_is_done = true;
+            m_head    = m_tail;
+            m_tail    = std::string_view {};
+        }
+        else {
+            m_head = m_tail.substr(0, pos);
+            m_tail.remove_prefix(pos + 1);
+        }
+        return m_head;
+    }
+
     container::string_view_array split_string(std::string_view view, char sep)
     {
         container::string_view_array result;
