@@ -21,8 +21,9 @@ target_compile_features(datetime
 
 target_link_libraries(datetime
     PUBLIC
-    fmt
     date::tz
+    fmt
+    stuff::string
     )
 
 target_include_directories(datetime
