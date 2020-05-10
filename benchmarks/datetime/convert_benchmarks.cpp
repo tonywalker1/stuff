@@ -17,6 +17,7 @@
 
 #include <catch2/catch.hpp>
 #include <date/date.h>
+#include <stuff/datetime/conversions.h>
 #include <stuff/datetime/datetime.h>
 #include <stuff/string/split.h>
 

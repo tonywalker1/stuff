@@ -18,7 +18,7 @@
 #ifndef STUFF_DATETIME_FINANCIAL_H
 #define STUFF_DATETIME_FINANCIAL_H
 
-#include <stuff/datetime/datetime.h>
+#include <stuff/datetime/types.h>
 
 namespace stuff::datetime {
 

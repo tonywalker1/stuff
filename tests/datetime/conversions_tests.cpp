@@ -18,6 +18,7 @@
 #include <catch2/catch.hpp>
 #include <date/date.h>
 #include <sstream>
+#include <stuff/datetime/conversions.h>
 #include <stuff/datetime/datetime.h>
 
 using namespace stuff::datetime;

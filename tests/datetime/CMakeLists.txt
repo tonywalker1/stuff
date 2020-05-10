@@ -8,7 +8,7 @@ find_package(Catch2 REQUIRED)
 ################################################################################
 add_executable(stuff_datetime_tests
     main.cpp
-    datetime_tests.cpp
+    conversions_tests.cpp
     )
 
 target_link_libraries(stuff_datetime_tests

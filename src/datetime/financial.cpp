@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
+#include <stuff/datetime/datetime.h>
 #include <stuff/datetime/financial.h>
 
 namespace stuff::datetime {

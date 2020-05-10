@@ -8,6 +8,7 @@ find_package(date REQUIRED)
 # build project
 ################################################################################
 add_library(datetime SHARED
+    conversions.cpp
     datetime.cpp
     financial.cpp
     )
