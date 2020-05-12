@@ -45,7 +45,7 @@ install(TARGETS datetime
     )
 install(
     DIRECTORY ${PROJECT_SOURCE_DIR}/include/stuff/datetime
-    DESTINATION include/stuff/datetime
+    DESTINATION include/stuff
 )
 install(EXPORT stuff_datetimeTargets
     FILE stuff_datetimeTargets.cmake

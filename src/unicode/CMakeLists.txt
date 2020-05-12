@@ -39,7 +39,7 @@ install(TARGETS unicode
     )
 install(
     DIRECTORY ${PROJECT_SOURCE_DIR}/include/stuff/unicode
-    DESTINATION include/stuff/unicode
+    DESTINATION include/stuff
 )
 install(EXPORT stuff_unicodeTargets
     FILE stuff_unicodeTargets.cmake

@@ -40,7 +40,7 @@ install(TARGETS string
     )
 install(
     DIRECTORY ${PROJECT_SOURCE_DIR}/include/stuff/string
-    DESTINATION include/stuff/string
+    DESTINATION include/stuff
 )
 install(EXPORT stuff_stringTargets
     FILE stuff_stringTargets.cmake

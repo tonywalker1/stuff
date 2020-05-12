@@ -49,7 +49,7 @@ install(TARGETS io
     )
 install(
     DIRECTORY ${PROJECT_SOURCE_DIR}/include/stuff/io
-    DESTINATION include/stuff/io
+    DESTINATION include/stuff
 )
 install(EXPORT stuff_ioTargets
     FILE stuff_ioTargets.cmake

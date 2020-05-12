@@ -1,7 +1,7 @@
-.idea
-.kdev4
+.idea/
+.kdev4/
 *.kdev4
-.vscode
-build
-cmake-build-*
+.vscode/
+build/
+cmake-build-*/
 CMakeLists.txt.user

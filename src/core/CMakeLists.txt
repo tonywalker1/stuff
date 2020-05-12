@@ -40,7 +40,7 @@ install(TARGETS core
     )
 install(
     DIRECTORY ${PROJECT_SOURCE_DIR}/include/stuff/core
-    DESTINATION include/stuff/core
+    DESTINATION include/stuff
 )
 install(EXPORT stuff_coreTargets
     FILE stuff_coreTargets.cmake
