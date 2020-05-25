@@ -29,26 +29,26 @@ namespace stuff::datetime {
     //
     // Quick access to the New York (US East) time zone struct.
     //
-    time_zone nyc_tz() noexcept;
+    [[nodiscard]] time_zone nyc_tz() noexcept;
 
     //
     // Get the current time relative to UTC or the given time zone.
     //
-    sys_time   current_time() noexcept;
-    zoned_time current_time(time_zone tz);
+    [[nodiscard]] sys_time   current_time() noexcept;
+    [[nodiscard]] zoned_time current_time(time_zone tz);
 
     //
     // Given any time, find the start of the week (i.e., sunday at midnight).
     //
-    sys_time   find_sunday(sys_time t);
-    zoned_time find_sunday(zoned_time t);
+    [[nodiscard]] sys_time   find_sunday(sys_time t) noexcept;
+    [[nodiscard]] zoned_time find_sunday(zoned_time t);
 
     //
     // Given a day-point (as sys_time or local_time), find the day-point for the
     // preceding Sunday.
     //
     template <typename T>
-    T find_sunday(T dp)
+    [[nodiscard]] T find_sunday(T dp) noexcept
     {
         auto wd = date::weekday(dp);
         if (wd == date::Monday) {

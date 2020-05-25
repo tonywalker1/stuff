@@ -20,7 +20,7 @@
 
 namespace stuff::datetime {
 
-    forex_bells get_forex_bells(sys_time t)
+    forex_bells get_forex_bells(sys_time t) noexcept
     {
         // find sunday in nyc
         zoned_time sunday = find_sunday(date::make_zoned(nyc_tz(), t));

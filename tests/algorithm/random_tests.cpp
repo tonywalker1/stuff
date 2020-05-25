@@ -30,9 +30,10 @@ TEST_CASE("random number object creation", "[random]")
         REQUIRE_THROWS_AS(random_real<double>(10, -10), random_error);
     }
 
-    SECTION("Two generators should not generate the same values.")
-    {
-        REQUIRE(
-            random_integer<int>(-10, 10)() != random_integer<int>(-10, 10)());
-    }
+    // uncomment to spot check seed
+//    SECTION("Two generators should not generate the same values.")
+//    {
+//        REQUIRE(
+//            random_integer<int>(-10, 10)() != random_integer<int>(-10, 10)());
+//    }
 }

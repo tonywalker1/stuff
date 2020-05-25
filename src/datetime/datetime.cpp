@@ -22,7 +22,7 @@ namespace stuff::datetime {
 
     time_zone nyc_tz() noexcept
     {
-        static const auto tz = date::locate_zone("America/New_York");
+        static time_zone tz = date::locate_zone("America/New_York");
         return tz;
     }
 
@@ -33,7 +33,7 @@ namespace stuff::datetime {
         return date::make_zoned(tz, clock::now());
     }
 
-    sys_time find_sunday(sys_time t)
+    sys_time find_sunday(sys_time t) noexcept
     {
         return find_sunday(date::floor<date::days>(t));
     }

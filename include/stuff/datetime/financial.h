@@ -29,7 +29,7 @@ namespace stuff::datetime {
         const sys_time open;
         const sys_time close;
     };
-    forex_bells get_forex_bells(sys_time t);
+    [[nodiscard]] forex_bells get_forex_bells(sys_time t) noexcept;
 
 } // namespace stuff::datetime
 

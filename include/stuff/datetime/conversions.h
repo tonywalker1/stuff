@@ -50,21 +50,22 @@ namespace stuff::datetime {
     //   2020-03-21 09:34:51.123456789Z
     // with 'Z' (sys_time) or without 'Z' (sys_time or local_time)
     //
-    sys_time   to_sys_time(std::string_view view);
-    local_time to_local_time(std::string_view view);
+    [[nodiscard]] sys_time   to_sys_time(std::string_view view);
+    [[nodiscard]] local_time to_local_time(std::string_view view);
 
     // Convenience conversions:
     // to sys_time from local string and zone
-    sys_time to_sys_time(std::string_view local_view, time_zone local_tz);
+    [[nodiscard]] sys_time to_sys_time(
+        std::string_view local_view, time_zone local_tz);
 
     // Quickly convert the given time to a string with nanosecond resolution.
     // The output will be of the form:
     //  2020-03-21T09:34:51.123456789Z (for sys_time)
     //  2020-03-21T09:34:51.123456789  (for local_time)
     //  2020-03-21T09:34:51.123456789 America/New_York (e.g., most of US East)
-    std::string to_string(sys_time t);
-    std::string to_string(local_time t);
-    std::string to_string(zoned_time t);
+    [[nodiscard]] std::string to_string(sys_time t);
+    [[nodiscard]] std::string to_string(local_time t);
+    [[nodiscard]] std::string to_string(zoned_time t);
 
 } // namespace stuff::datetime
 

@@ -1,8 +1,9 @@
 ################################################################################
 # find dependencies
 ################################################################################
-find_package(fmt REQUIRED)
 find_package(date REQUIRED)
+find_package(fmt REQUIRED)
+find_package(Threads REQUIRED)
 
 ################################################################################
 # build project
@@ -22,7 +23,7 @@ target_compile_features(datetime
 
 target_link_libraries(datetime
     PUBLIC
-    date::tz
+    date::date-tz
     fmt
     stuff::string
     )
