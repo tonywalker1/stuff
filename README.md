@@ -1,3 +1,16 @@
+# NOTICE:
+
+What a year 2020 has been (not in a positive way)! I have finally have the 
+time to return to this project. As such, I have been convinced to make some 
+major structural changes AND actually do some innovative things with the 
+library.
+
+This has a few major implications:
+1. I will start splitting the library into small (mostly) standalone libraries.
+2. I will relicense the code to something less restrictive (probably MIT).
+3. I will leave this library here for a while, but unmaintained. **Eventually, 
+   I will remove this library.**
+
 # stuff
 
 A library of miscellaneous, random, eclectic C++ code and other stuff. ;-)
